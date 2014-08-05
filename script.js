@@ -1,5 +1,7 @@
 var Jazz = document.getElementById("Jazz1"); if(!Jazz || !Jazz.isJazz) Jazz = document.getElementById("Jazz2");
-var currentSound;
+console.debug(Jazz.MidiOutList());
+Jazz.MidiOutOpen('Launchpad');
+Jazz.MidiOut(176,0,0); // Reset the launchpad
 
 SC.initialize({
   client_id: "6603d805dad113c51b7df28b6737f2cc",
@@ -7,7 +9,7 @@ SC.initialize({
 });
 
 Jazz.MidiInOpen(0,function(t,a){
-  var square = $(".square" + a[1]);
+  var square = $('[data-squarenumber="' + a[1] + '"]');
   console.debug($(square));
 
   markSquareAsArmed(square);
@@ -22,12 +24,16 @@ $("[class^=square]").click(function() {
 function markSquareAsArmed(square) {
   square.attr("src", "./img/button-armed.png");
 
+  Jazz.MidiOut(176,0,0); // Reset the launchpad
+  Jazz.MidiOut(0x90,square.data("squarenumber"),15);
+
   var otherSquares = $("[class^=square]").not(square);
   $.each(otherSquares, function(i, val) {
     $(val).attr("src", "./img/button-passive.png");
   });
 }
 
+var currentSound;
 function playTrackOnSquare(square) {
   var track = square.attr("url");
   var position = square.attr("position");
@@ -42,7 +48,7 @@ function playTrackOnSquare(square) {
 }
 
 $(function() {
-  $("[class^=square]")
+  $("square")
     .mouseover(function() {
       src = "./img/button-armed.png";
       $(this).attr("src", src);
