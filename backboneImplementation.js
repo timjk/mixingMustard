@@ -45,18 +45,17 @@
     },
 
     render: function(){
-      $(this.el).append("<h2>Launch Cloud</h2>");
+      $(this.el).append("<img src='img/launchcloud.gif'/>");
       $(this.el).append("<h3>Use your Launchpad to cue soundcloud clips</h3>");
 
       var firstRow = [[0,292],[1,293],[2,294],[3,295]];
-      var secondRow = [[16, 292],[17,293],[18,294],[19,295]];
+      var secondRow = [[16, 6533838],[17,151146412],[18,139133862],[19,153158256]];
       var thirdRow = [[32,2],[33,17],[34,19],[35,43]];
       var fourthRow = [[48,158851384],[49,2397001],[50,97075414],[51,113919687]];
-
       firstRow = this.convertRowToHtml(firstRow);
-      secondRow = this.convertRowToHtml(secondRow);
+      secondRow = this.convertRowToHtmlPosition90000(secondRow);
       thirdRow = this.convertRowToHtml(thirdRow);
-      fourthRow = this.convertRowToHtml(fourthRow);
+      fourthRow = this.convertRowToHtmlPosition90000(fourthRow);
 
       $(this.el).append(firstRow);
       $(this.el).append('<br/>');
@@ -73,7 +72,6 @@
       $.each(allSquares, function(i, square) {
         var squareNumber = $(square).data("squarenumber");
         var track = $(square).attr("url");
-        var position = $(square).attr("position"); // Use position eventually...
         SC.stream(track, function(sound){
           me.preloadedClips[squareNumber] = sound;
         });
@@ -83,6 +81,12 @@
     convertRowToHtml: function(row) {
       return _.map(row, function(pair) {
         return '<img class="square" data-squarenumber="' + pair[0] + '" url="/tracks/' + pair[1] + '" position="0" src="./img/button-passive.png"/>';
+      });
+    },
+
+    convertRowToHtmlPosition90000: function(row) {
+      return _.map(row, function(pair) {
+        return '<img class="square" data-squarenumber="' + pair[0] + '" url="/tracks/' + pair[1] + '" position="90000" src="./img/button-passive.png"/>';
       });
     },
 
@@ -98,8 +102,10 @@
 
     playTrackOnSquare: function(square) {
       var squareNumber = $(square).data("squarenumber");
+      var position = $(square).attr("position");
 
       this.preloadedClips[squareNumber].stop();
+      this.preloadedClips[squareNumber].setPosition(position);
       this.preloadedClips[squareNumber].play();
     }
   });

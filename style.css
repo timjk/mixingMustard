@@ -17,3 +17,7 @@ h2, h3 {
   max-width: 0px;
   max-height: 0px;
 }
+
+img {
+  margin: 5px;
+}
