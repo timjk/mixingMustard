@@ -19,5 +19,9 @@ h2, h3 {
 }
 
 img {
-  margin: 5px;
+  margin: 2px;
+}
+
+#launchpad {
+  display:inline;
 }
