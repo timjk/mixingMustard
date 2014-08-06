@@ -1,55 +1,20 @@
 <html>
-
   <head>
     <title>LaunchCloud</title>
   </head>
   <body>
-
-    <h2>Launch Cloud<h2>
-    <h3>Use your Launchpad to cue soundcloud clips</h3>
-
-    <div id="launchpad">
-      <!-- Random tracks... -->
-      <img class="square" data-squarenumber="0" url="/tracks/292" position="0" src="./img/button-passive.png"/>
-      <img class="square" data-squarenumber="1" url="/tracks/293" position="0" src="./img/button-passive.png"/>
-      <img class="square" data-squarenumber="2" url="/tracks/294" position="0" src="./img/button-passive.png"/>
-      <img class="square" data-squarenumber="3" url="/tracks/295" position="0" src="./img/button-passive.png"/>
-
-      <br/>
-
-      <!-- Random tracks but displaced 2000 -->
-      <img class="square" data-squarenumber="16" url="/tracks/292" position="10000" src="./img/button-passive.png"/>
-      <img class="square" data-squarenumber="17" url="/tracks/293" position="10000" src="./img/button-passive.png"/>
-      <img class="square" data-squarenumber="18" url="/tracks/294" position="10000" src="./img/button-passive.png"/>
-      <img class="square" data-squarenumber="19" url="/tracks/295" position="10000" src="./img/button-passive.png"/>
-
-      <br/>
-
-      <!-- The first tracks I could find with sound -->
-      <img class="square" data-squarenumber="32" url="/tracks/2" position="0" src="./img/button-passive.png"/>
-      <img class="square" data-squarenumber="33" url="/tracks/17" position="0" src="./img/button-passive.png"/>
-      <img class="square" data-squarenumber="34" url="/tracks/19" position="0" src="./img/button-passive.png"/>
-      <img class="square" data-squarenumber="35" url="/tracks/43" position="0" src="./img/button-passive.png"/>
-
-      <br/>
-
-      <!-- Tracks I made -->
-      <img class="square" data-squarenumber="48" url="/tracks/158851384" position="0" src="./img/button-passive.png"/>
-      <img class="square" data-squarenumber="49" url="/tracks/2397001" position="0" src="./img/button-passive.png"/>
-      <img class="square" data-squarenumber="50" url="/tracks/97075414" position="0" src="./img/button-passive.png"/>
-      <img class="square" data-squarenumber="51" url="/tracks/113919687" position="0" src="./img/button-passive.png"/>
-    </div>
-
     <object id="Jazz2" type="audio/x-jazz" class="hidden">
       <p style="visibility:visible;">This page requires <a href=http://jazz-soft.net>Jazz-Plugin</a> ...</p>
     </object>
 
     <script src="http://connect.soundcloud.com/sdk.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="./script.js"></script>
-    <script src="./inputHandling.js"></script>
+
+    <script src="http://ajax.cdnjs.com/ajax/libs/underscore.js/1.1.4/underscore-min.js"></script>
+    <script src="http://ajax.cdnjs.com/ajax/libs/backbone.js/0.3.3/backbone-min.js"></script>
+
+    <script src="./backboneImplementation.js"></script>
 
     <link rel="stylesheet" type="text/css" href="style.css"/>
   </body>
-
 </html>
