@@ -2,6 +2,10 @@ body {
   background-color:black;
 }
 
+h2, h3 {
+  color: white;
+}
+
 .hidden {
   visibility: hidden;
   width: 0px;
