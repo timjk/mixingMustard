@@ -5,12 +5,27 @@
       squareNumber: 0,
       trackNumber: -1,
       position: 0,
-      playing: false
+      playing: false,
+      cachedSound: null,
+    },
+
+    initialize: function() {
+      var me = this;
+
+      var track = this.get("trackNumber");
+
+      SC.stream(track, function(sound){
+        me.set("cachedSound", sound);
+      });
     },
 
     arm: function() {
       this.set("playing", true);
       Jazz.MidiOut(0x90, this.get("squareNumber") ,15);
+
+      this.get("cachedSound").stop();
+      this.get("cachedSound").setPosition(this.get("position"));
+      this.get("cachedSound").play();
     }
   });
 
@@ -27,6 +42,10 @@
         buttonImage = './img/button-armed.png';
       }
 
+      if(trackNumber != -1) {
+        Jazz.MidiOut(0x90, squareNumber, 32);
+      }
+
       $(this.el).html('<img class="square" data-squarenumber=' + squareNumber + ' url="/tracks/' + trackNumber + '" position=0 src="' + buttonImage + '"/>');
 
       return this;
@@ -40,39 +59,27 @@
   var ListView = Backbone.View.extend({
     el: $('body'),
 
-    events: {
-      'click img': 'playClip'
-    },
-
     initialize: function(){
       _.bindAll(this, 'render');
-
-      this.preloadedClips = [];
 
       this.initializeSoundcloudAndLaunchpad();
       this.setupMidiInputEvent();
 
       this.collection = new List();
 
-      var square = new Square();
-      square.set({
-        squareNumber: 0,
-        trackNumber: 158851384
-      });
-      this.collection.add(square);
-
-      this.addBlankSquare(1);
-      this.addBlankSquare(2);
-      this.addBlankSquare(3);
+      this.addSquare(0, 139133862, 0);
+      this.addSquare(1, 153158256, 0);
+      this.addSquare(2, 65732315, 5);
+      this.addSquare(3, -1, 0);
 
       this.render();
-      this.preloadClips();
     },
 
-    addBlankSquare: function(squareNumber) {
-      var square = new Square();
-      square.set({
+    addSquare: function(squareNumber, trackNumber, position) {
+      var square = new Square({
         squareNumber: squareNumber,
+        trackNumber: trackNumber,
+        position: position
       });
       this.collection.add(square);
     },
@@ -108,39 +115,12 @@
       $(this.el).append("<h2>Launch Cloud</h2>");
       $(this.el).append("<h3>Use your Launchpad to cue soundcloud clips</h3>");
 
-      
       _(this.collection.models).each(function(square){
         var squareView = new SquareView({
           model: square
         });
         $(this.el).append(squareView.render().el);
       }, this);
-    },
-
-    preloadClips: function() {
-      var me = this;
-      var allSquares = $(".square");
-      $.each(allSquares, function(i, square) {
-        var squareNumber = $(square).data("squarenumber");
-        var track = $(square).attr("url");
-        SC.stream(track, function(sound){
-          me.preloadedClips[squareNumber] = sound;
-        });
-      });
-    },
-
-    playClip: function(item) {
-      this.playTrackOnSquare(item.target);
-      this.markSquareAsArmed(item.target);
-    },
-
-    playTrackOnSquare: function(square) {
-      var squareNumber = $(square).data("squarenumber");
-      var position = $(square).attr("position");
-
-      this.preloadedClips[squareNumber].stop();
-      this.preloadedClips[squareNumber].setPosition(position);
-      this.preloadedClips[squareNumber].play();
     }
   });
 
