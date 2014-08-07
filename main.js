@@ -30,6 +30,8 @@
   });
 
   var SquareView = Backbone.View.extend({
+    className: 'squareContainer',
+
     initialize: function() {
       this.listenTo(this.model, "change", this.render);
     },
@@ -46,7 +48,7 @@
         Jazz.MidiOut(0x90, squareNumber, 32);
       }
 
-      $(this.el).html('<img class="square" data-squarenumber=' + squareNumber + ' url="/tracks/' + trackNumber + '" position=0 src="' + buttonImage + '"/>');
+      $(this.el).html('<img class="square" src="' + buttonImage + '"/>');
 
       return this;
     }
@@ -70,9 +72,30 @@
       this.addSquare(0, 139133862, 0);
       this.addSquare(1, 153158256, 0);
       this.addSquare(2, 65732315, 5);
-      this.addSquare(3, -1, 0);
+
+      this.addEmptySquares();
 
       this.render();
+    },
+
+    addEmptySquares: function() {
+      // add ranges...?
+
+      for(var i = 3; i < 8; i++) {
+        this.addSquare(i, -1, 0);
+      }
+
+      for (var i = 0; i < 8; i++) {
+        this.addSquare(i + 16, -1, 0);
+      }
+
+      for (var i = 0; i < 8; i++) {
+        this.addSquare(i + 32, -1, 0);
+      }
+
+      for (var i = 0; i < 8; i++) {
+        this.addSquare(i + 48, -1, 0);
+      }
     },
 
     addSquare: function(squareNumber, trackNumber, position) {
@@ -112,14 +135,20 @@
     render: function(){
       var me = this;
 
-      $(this.el).append("<h2>Launch Cloud</h2>");
-      $(this.el).append("<h3>Use your Launchpad to cue soundcloud clips</h3>");
+      var template = _.template($("#index_template").html());
+      this.$el.append(template);
 
+      var squareCount = 1;
       _(this.collection.models).each(function(square){
         var squareView = new SquareView({
           model: square
         });
-        $(this.el).append(squareView.render().el);
+        $("#launchpad").append(squareView.render().el);
+
+        if(squareCount % 8 === 0) {
+          $("#launchpad").append("<br/>");
+        }
+        squareCount++;
       }, this);
     }
   });
