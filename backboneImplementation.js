@@ -5,14 +5,27 @@
       squareNumber: 0,
       trackNumber: -1,
       position: 0,
+      playing: false
+    },
+
+    arm: function() {
+      this.set("playing", true);
+      Jazz.MidiOut(0x90, this.get("squareNumber") ,15);
     }
   });
 
   var SquareView = Backbone.View.extend({
+    initialize: function() {
+      this.listenTo(this.model, "change", this.render);
+    },
+
     render: function() {
       var squareNumber = this.model.get('squareNumber');
       var trackNumber = this.model.get('trackNumber');
       var buttonImage = trackNumber != -1 ? './img/button-active.png' : './img/button-passive.png';
+      if(this.model.get('playing')) {
+        buttonImage = './img/button-armed.png';
+      }
 
       $(this.el).html('<img class="square" data-squarenumber=' + squareNumber + ' url="/tracks/' + trackNumber + '" position=0 src="' + buttonImage + '"/>');
 
@@ -82,11 +95,10 @@
           return; // Ignore the off signal
         }
 
-        var square = $('[data-squarenumber="' + a[1] + '"]');
-        console.debug($(square));
-
-        me.markSquareAsArmed(square);
-        me.playTrackOnSquare(square);
+        var square = _.find(me.collection.models, function(element) {
+          return element.attributes.squareNumber == a[1];
+        });
+        square.arm();
       });
     },
 
@@ -96,16 +108,12 @@
       $(this.el).append("<h2>Launch Cloud</h2>");
       $(this.el).append("<h3>Use your Launchpad to cue soundcloud clips</h3>");
 
+      
       _(this.collection.models).each(function(square){
         var squareView = new SquareView({
           model: square
         });
         $(this.el).append(squareView.render().el);
-
-        if(square.attributes.trackNumber != -1) {
-          me.markSquareAsActive(square);
-        }
-
       }, this);
     },
 
@@ -121,31 +129,9 @@
       });
     },
 
-    convertRowToHtml: function(row) {
-      return _.map(row, function(pair) {
-        return '<img class="square" data-squarenumber="' + pair[0] + '" url="/tracks/' + pair[1] + '" position="0" src="./img/button-passive.png"/>';
-      });
-    },
-
-    convertRowToHtmlPosition90000: function(row) {
-      return _.map(row, function(pair) {
-        return '<img class="square" data-squarenumber="' + pair[0] + '" url="/tracks/' + pair[1] + '" position="90000" src="./img/button-passive.png"/>';
-      });
-    },
-
     playClip: function(item) {
       this.playTrackOnSquare(item.target);
       this.markSquareAsArmed(item.target);
-    },
-
-    markSquareAsArmed: function(square) {
-      $(square).attr("src", "./img/button-armed.png");
-      Jazz.MidiOut(0x90, $(square).data("squarenumber"),15);
-    },
-
-    markSquareAsActive: function(square) {
-      $(square).attr("src", "./img/button-active.png");
-      Jazz.MidiOut(0x90, square.attributes.squareNumber,16);
     },
 
     playTrackOnSquare: function(square) {
