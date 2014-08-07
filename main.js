@@ -10,10 +10,13 @@
     },
 
     initialize: function() {
+      this.setCachedSong();
+      this.on("change:trackNumber", this.setCachedSong, this);
+    },
+
+    setCachedSong: function() {
       var me = this;
-
       var track = this.get("trackNumber");
-
       SC.stream(track, function(sound){
         me.set("cachedSound", sound);
       });
@@ -39,10 +42,7 @@
     render: function() {
       var squareNumber = this.model.get('squareNumber');
       var trackNumber = this.model.get('trackNumber');
-      var buttonImage = trackNumber != -1 ? './img/button-active.png' : './img/button-passive.png';
-      if(this.model.get('playing')) {
-        buttonImage = './img/button-armed.png';
-      }
+      var buttonImage = this.decideImageToUse();
 
       if(trackNumber != -1) {
         Jazz.MidiOut(0x90, squareNumber, 32);
@@ -51,51 +51,42 @@
       $(this.el).html('<img class="square" src="' + buttonImage + '"/>');
 
       return this;
+    },
+
+    decideImageToUse: function() {
+      var trackNumber = this.model.get('trackNumber');
+      var buttonImage = trackNumber != -1 ? './img/button-active.png' : './img/button-passive.png';
+      if(this.model.get('playing')) {
+        buttonImage = './img/button-armed.png';
+      }
+      return buttonImage;
     }
   });
 
   var List = Backbone.Collection.extend({
-    model: Square
-  });
+    model: Square,
 
-  var ListView = Backbone.View.extend({
-    el: $('body'),
-
-    initialize: function(){
-      _.bindAll(this, 'render');
-
-      this.initializeSoundcloudAndLaunchpad();
-      this.setupMidiInputEvent();
-
-      this.collection = new List();
-
-      this.addSquare(0, 139133862, 0);
-      this.addSquare(1, 153158256, 0);
-      this.addSquare(2, 65732315, 5);
-
+    initialize: function() {
       this.addEmptySquares();
-
-      this.render();
+      this.setDefaultClips();
     },
 
     addEmptySquares: function() {
-      // add ranges...?
+      var me = this;
 
-      for(var i = 3; i < 8; i++) {
-        this.addSquare(i, -1, 0);
-      }
+      var squareNumbers = [];
+      squareNumbers = squareNumbers.concat(_.range(0, 8));
+      squareNumbers = squareNumbers.concat(_.range(16, 24));
+      squareNumbers = squareNumbers.concat(_.range(32, 40));
+      squareNumbers = squareNumbers.concat(_.range(48, 56));
+      squareNumbers = squareNumbers.concat(_.range(64, 72));
+      squareNumbers = squareNumbers.concat(_.range(80, 88));
+      squareNumbers = squareNumbers.concat(_.range(96, 104));
+      squareNumbers = squareNumbers.concat(_.range(112, 120));
 
-      for (var i = 0; i < 8; i++) {
-        this.addSquare(i + 16, -1, 0);
-      }
-
-      for (var i = 0; i < 8; i++) {
-        this.addSquare(i + 32, -1, 0);
-      }
-
-      for (var i = 0; i < 8; i++) {
-        this.addSquare(i + 48, -1, 0);
-      }
+      _.each(squareNumbers, function(squareNumber) {
+        me.addSquare(squareNumber, -1, 0);
+      });
     },
 
     addSquare: function(squareNumber, trackNumber, position) {
@@ -104,18 +95,26 @@
         trackNumber: trackNumber,
         position: position
       });
-      this.collection.add(square);
+      this.add(square);
     },
 
-    initializeSoundcloudAndLaunchpad : function() {
-      Jazz = document.getElementById("Jazz1"); if(!Jazz || !Jazz.isJazz) Jazz = document.getElementById("Jazz2");
-      Jazz.MidiOutOpen('Launchpad');
-      Jazz.MidiOut(176,0,0); // Reset the launchpad
+    setDefaultClips: function() {
+      this.findWhere({squareNumber : 0}).set({"trackNumber" : 139133862});
+      this.findWhere({squareNumber : 1}).set({"trackNumber" : 153158256});
+      this.findWhere({squareNumber : 2}).set({"trackNumber" : 65732315});
+    }
+  });
 
-      SC.initialize({
-        client_id: "6603d805dad113c51b7df28b6737f2cc",
-        redirect_uri: "http://example.com/callback.html",
-      });
+  var ListView = Backbone.View.extend({
+    el: $('body'),
+
+    initialize: function(){
+      _.bindAll(this, 'render');
+
+      this.setupMidiInputEvent();
+
+      this.collection = new List();
+      this.render();
     },
 
     setupMidiInputEvent : function() {
