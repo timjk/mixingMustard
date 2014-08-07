@@ -1,6 +1,7 @@
 (function($){
 
   var Square = Backbone.Model.extend({
+
     defaults : {
       squareNumber: 0,
       trackNumber: -1,
@@ -22,10 +23,8 @@
       });
     },
 
-    arm: function() {
+    play: function() {
       this.set("playing", true);
-      Jazz.MidiOut(0x90, this.get("squareNumber") ,15);
-
       this.get("cachedSound").stop();
       this.get("cachedSound").setPosition(this.get("position"));
       this.get("cachedSound").play();
@@ -36,6 +35,10 @@
     className: 'squareContainer',
 
     initialize: function() {
+      this.LAUNCHPAD_RED = 15;
+      this.LAUNCHPAD_AMBER = 63;
+      this.LAUNCHPAD_GREEN = 60;
+
       this.listenTo(this.model, "change", this.render);
     },
 
@@ -45,7 +48,11 @@
       var buttonImage = this.decideImageToUse();
 
       if(trackNumber != -1) {
-        Jazz.MidiOut(0x90, squareNumber, 32);
+        if(this.model.get('playing')) {
+          Jazz.MidiOut(0x90, squareNumber, this.LAUNCHPAD_AMBER);
+        } else {
+          Jazz.MidiOut(0x90, squareNumber, this.LAUNCHPAD_GREEN);
+        }
       }
 
       $(this.el).html('<img class="square" src="' + buttonImage + '"/>');
@@ -57,7 +64,7 @@
       var trackNumber = this.model.get('trackNumber');
       var buttonImage = trackNumber != -1 ? './img/button-active.png' : './img/button-passive.png';
       if(this.model.get('playing')) {
-        buttonImage = './img/button-armed.png';
+        buttonImage = './img/button-playing.png';
       }
       return buttonImage;
     }
@@ -117,6 +124,7 @@
       this.render();
     },
 
+    // This should be moved to libInitialisation.js
     setupMidiInputEvent : function() {
       var me = this;
       Jazz.MidiInOpen(0,function(t,a){
@@ -127,7 +135,7 @@
         var square = _.find(me.collection.models, function(element) {
           return element.attributes.squareNumber == a[1];
         });
-        square.arm();
+        square.play();
       });
     },
 
