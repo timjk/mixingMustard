@@ -1,5 +1,5 @@
 (function($){
-  window.Square = Backbone.Model.extend({
+  window.SquareModel = Backbone.Model.extend({
     defaults : {
       squareNumber: 0,
       trackNumber: -1,

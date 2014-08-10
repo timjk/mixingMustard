@@ -25,3 +25,12 @@ img {
 .squareContainer {
   display: inline;
 }
+
+#launchpad {
+  display:inline-block;
+}
+
+#trackDetails {
+  display:inline-block;
+  color: white;
+}

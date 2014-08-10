@@ -7,7 +7,7 @@
 
       this.setupMidiInputEvent();
 
-      this.collection = new window.List();
+      this.collection = new window.ListCollection();
       this.render();
     },
 
@@ -47,6 +47,11 @@
         }
         squareCount++;
       }, this);
+
+      var trackDetailsView = new window.TrackDetailsView({
+        model: new window.TrackDetailsModel()
+      });
+      trackDetailsView.render();
     }
   });
 })(jQuery);

@@ -1,6 +1,6 @@
 (function($){
-  window.List = Backbone.Collection.extend({
-    model: window.Square,
+  window.ListCollection = Backbone.Collection.extend({
+    model: window.SquareModel,
 
     initialize: function() {
       this.addEmptySquares();
@@ -26,7 +26,7 @@
     },
 
     addSquare: function(squareNumber, trackNumber, position) {
-      var square = new window.Square({
+      var square = new window.SquareModel({
         squareNumber: squareNumber,
         trackNumber: trackNumber,
         position: position
