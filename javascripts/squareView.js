@@ -1,6 +1,9 @@
 (function($){
   window.SquareView = Backbone.View.extend({
     className: 'squareContainer',
+    events : {
+      "click" : "playClip"
+    },
 
     initialize: function() {
       this.LAUNCHPAD_RED = 15;
@@ -15,12 +18,14 @@
       var trackNumber = this.model.get('trackNumber');
       var buttonImage = this.decideImageToUse();
 
-      if(trackNumber != -1) {
+      if (trackNumber != -1) {
+        /*
         if(this.model.get('playing')) {
-          Jazz.MidiOut(0x90, squareNumber, this.LAUNCHPAD_AMBER);
+          window.LibraryInitialiser.Jazz.MidiOut(0x90, squareNumber, this.LAUNCHPAD_AMBER);
         } else {
-          Jazz.MidiOut(0x90, squareNumber, this.LAUNCHPAD_GREEN);
+          window.LibraryInitialiser.Jazz.MidiOut(0x90, squareNumber, this.LAUNCHPAD_GREEN);
         }
+        */
       }
 
       $(this.el).html('<img class="square" src="' + buttonImage + '"/>');
@@ -30,10 +35,16 @@
     decideImageToUse: function() {
       var trackNumber = this.model.get('trackNumber');
       var buttonImage = trackNumber != -1 ? './img/button-active.png' : './img/button-passive.png';
-      if(this.model.get('playing')) {
+      if (this.model.get('playing')) {
         buttonImage = './img/button-playing.png';
       }
       return buttonImage;
+    },
+
+    playClip: function() {
+      if (this.model.get('trackNumber') != -1) {
+        this.model.play();
+      }
     }
   });
 })(jQuery);

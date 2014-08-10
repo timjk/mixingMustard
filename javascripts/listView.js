@@ -14,7 +14,9 @@
     // This should be moved to libInitialisation.js
     setupMidiInputEvent : function() {
       var me = this;
-      Jazz.MidiInOpen(0,function(t,a){
+
+      /*
+      window.LibraryInitialiser.Jazz.MidiInOpen(0,function(t,a){
         if(a[2] === 0) {
           return; // Ignore the off signal
         }
@@ -24,6 +26,7 @@
         });
         square.play();
       });
+      */
     },
 
     render: function(){
