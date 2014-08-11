@@ -35,17 +35,15 @@
     decideImageToUse: function() {
       var trackNumber = this.model.get('trackNumber');
       var buttonImage = trackNumber != -1 ? './img/button-active.png' : './img/button-passive.png';
-      if (this.model.get('playing')) {
+      if (this.model.get('playing') && trackNumber != -1) {
         buttonImage = './img/button-playing.png';
       }
       return buttonImage;
     },
 
     squareClicked: function() {
-      if (this.model.get('trackNumber') != -1) {
-        $('#trackDetails').trigger('selectedChanged', [this.model.get('trackNumber')]);
-        this.model.play();
-      }
+      $('#trackDetails').trigger('selectedChanged', [this.model.get('trackNumber')]);
+      this.model.play();
     }
   });
 })(jQuery);

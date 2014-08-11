@@ -30,3 +30,7 @@ img {
 #trackDetails {
   display: inline-block;
 }
+
+button {
+  color: black;
+}
