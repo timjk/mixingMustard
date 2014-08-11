@@ -4,6 +4,8 @@
 
     initialize: function() {
       var me = this;
+      $("#trackDetails").addClass(".col-md-8");
+
       $("#trackDetails").on("selectedChanged", function(event, trackNumber) {
         var clientId = '6603d805dad113c51b7df28b6737f2cc';
 

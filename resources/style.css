@@ -23,12 +23,17 @@ img {
   display: inline;
 }
 
+#launchpad,
+#trackDetails {
+  float: left;
+}
+
 #launchpad {
-  display: inline-block;
+  background-color: blue;
 }
 
 #trackDetails {
-  display: inline-block;
+  background-color: red;
 }
 
 button {

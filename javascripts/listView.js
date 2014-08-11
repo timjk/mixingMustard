@@ -8,6 +8,7 @@
       this.setupMidiInputEvent();
 
       this.collection = new window.ListCollection();
+      $("#launchpad").addClass(".col-md-4");
 
       this.render();
     },
