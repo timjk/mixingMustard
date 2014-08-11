@@ -3,7 +3,7 @@
     defaults : {
       trackName: 'Cool song',
       artistName: 'Cool artist',
-      albumArt: ':D'
+      albumArt: './img/smile.png'
     }
   });
 })(jQuery);

@@ -1,9 +1,6 @@
 body {
-  background-color:black;
-}
-
-h2, h3 {
   color: white;
+  background-color:black;
 }
 
 .hidden {
@@ -27,10 +24,9 @@ img {
 }
 
 #launchpad {
-  display:inline-block;
+  display: inline-block;
 }
 
 #trackDetails {
-  display:inline-block;
-  color: white;
+  display: inline-block;
 }

@@ -2,7 +2,7 @@
   window.SquareView = Backbone.View.extend({
     className: 'squareContainer',
     events : {
-      "click" : "playClip"
+      "click" : "squareClicked"
     },
 
     initialize: function() {
@@ -41,8 +41,9 @@
       return buttonImage;
     },
 
-    playClip: function() {
+    squareClicked: function() {
       if (this.model.get('trackNumber') != -1) {
+        $('#trackDetails').trigger('selectedChanged', [this.model.get('trackNumber')]);
         this.model.play();
       }
     }
