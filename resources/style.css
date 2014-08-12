@@ -15,8 +15,18 @@ body {
   max-height: 0px;
 }
 
+h1,
+h2,
+h3 {
+    text-align:center;
+}
+
 .squareContainer {
   display: inline;
+}
+
+#mainView {
+  background-color: purple;
 }
 
 #launchpad,
