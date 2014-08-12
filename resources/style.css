@@ -15,16 +15,13 @@ body {
   max-height: 0px;
 }
 
-img {
-  margin: 2px;
-}
-
 .squareContainer {
   display: inline;
 }
 
 #launchpad,
 #trackDetails {
+  padding: 20px;
   float: left;
 }
 

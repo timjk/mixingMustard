@@ -22,12 +22,9 @@ My tracks
 
 When I'm cleaning up
 --------
-1. Use templating as often as possible
-2. Check view/model responsibilites are correct
-3. Image/link to soundcloud
-4. Global soundcloud client id
-5. Put event bindings on correct classes
-  a) change the updateTrackNumber event for #launchpad
-6. check property and method naming consistency
-7. get rid of trackSet property on trackDetailsModel
-8. pass launchpad element to event trigger method
+1. Check view/model responsibilites are correct
+2. Image/link to soundcloud
+3. Global soundcloud client id
+5. check property and method naming consistency
+6. get rid of trackSet property on trackDetailsModel
+7. pass launchpad element to event trigger method
