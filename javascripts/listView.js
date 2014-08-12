@@ -13,8 +13,8 @@
       this.render();
 
       // this is after this.render() because #launchpad doesn't exist yet. Change this...
-      $("#launchpad").addClass(".col-md-4");
-      $("#launchpad").on("updateTrackNumber", function(event, squareNumber, trackNumber) {
+      $('#launchpad').addClass('.col-md-4');
+      $('#launchpad').on('updateTrackNumber', function(event, squareNumber, trackNumber) {
         var square = _.find(me.collection.models, function(element) {
           return element.get('squareNumber') === squareNumber;
         });
@@ -43,7 +43,7 @@
     render: function(){
       var me = this;
 
-      var template = _.template($("#index_template").html());
+      var template = _.template($('#index_template').html());
       this.$el.append(template);
 
       var squareCount = 1;
@@ -51,10 +51,10 @@
         var squareView = new window.SquareView({
           model: square
         });
-        $("#launchpad").append(squareView.render().el);
+        $('#launchpad').append(squareView.render().el);
 
         if(squareCount % 8 === 0) {
-          $("#launchpad").append("<br/>");
+          $('#launchpad').append('<br/>');
         }
         squareCount++;
       }, this);
@@ -62,7 +62,7 @@
       var trackDetailsView = new window.TrackDetailsView({
         model: new window.TrackDetailsModel()
       });
-      $("#listView").append(trackDetailsView.render());
+      $('#listView').append(trackDetailsView.render());
     }
   });
 })(jQuery);

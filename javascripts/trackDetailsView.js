@@ -4,11 +4,11 @@
 
     initialize: function() {
       var me = this;
-      $("#trackDetails").append("<div id = trackDetailsInfo></div>");
-      $("#trackDetails").append("<button id = 'changeTrackButton'>Change Track</button>");
-      $("#trackDetails").addClass(".col-md-8");
+      $('#trackDetails').append('<div id = trackDetailsInfo></div>');
+      $('#trackDetails').append('<button id = "changeTrackButton">Change Track</button>');
+      $('#trackDetails').addClass('.col-md-8');
 
-      $("#trackDetails").on("selectedChanged", function(event, trackNumber, squareNumber) {
+      $('#trackDetails').on('selectedChanged', function(event, trackNumber, squareNumber) {
         var clientId = '6603d805dad113c51b7df28b6737f2cc';
 
         me.model.set('squareNumber', squareNumber);

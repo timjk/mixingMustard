@@ -10,22 +10,22 @@
 
     initialize: function() {
       this.setCachedSong();
-      this.on("change:trackNumber", this.setCachedSong, this);
+      this.on('change:trackNumber', this.setCachedSong, this);
     },
 
     setCachedSong: function() {
       var me = this;
-      var track = this.get("trackNumber");
+      var track = this.get('trackNumber');
       SC.stream(track, function(sound){
-        me.set("cachedSound", sound);
+        me.set('cachedSound', sound);
       });
     },
 
     play: function() {
-      this.set("playing", true);
-      this.get("cachedSound").stop();
-      this.get("cachedSound").setPosition(this.get("position")); // this doesn't work yet
-      this.get("cachedSound").play();
+      this.set('playing', true);
+      this.get('cachedSound').stop();
+      this.get('cachedSound').setPosition(this.get('position')); // this doesn't work yet
+      this.get('cachedSound').play();
     }
   });
 })(jQuery);

@@ -2,7 +2,7 @@
   window.SquareView = Backbone.View.extend({
     className: 'squareContainer',
     events : {
-      "click" : "squareClicked"
+      'click' : 'squareClicked'
     },
 
     initialize: function() {
@@ -10,7 +10,7 @@
       this.LAUNCHPAD_AMBER = 63;
       this.LAUNCHPAD_GREEN = 60;
 
-      this.listenTo(this.model, "change", this.render);
+      this.listenTo(this.model, 'change', this.render);
     },
 
     render: function() {
