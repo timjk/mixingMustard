@@ -1,4 +1,3 @@
-(function($){
-  var libraryInitialiser = new window.LibraryInitialiser();
-  var listView = new window.ListView();
-})(jQuery);
+var libraryInitialiser = new window.LibraryInitialiser();
+var mainView = new window.MainView();
+document.write(mainView.el.outerHTML);

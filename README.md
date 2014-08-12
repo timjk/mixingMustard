@@ -22,11 +22,12 @@ My tracks
 
 When I'm cleaning up
 --------
-1. Fix element binding - use $(this.el) instead of $('#something')
-2. Use templating as often as possible
-3. Check view/model responsibilites are correct
-4. Image/link to soundcloud
-5. Global soundcloud client id
-6. Initialize elements properly, don't just make them as a string and then refer to them with #thing
-7. Put event bindings on correct classes
+1. Use templating as often as possible
+2. Check view/model responsibilites are correct
+3. Image/link to soundcloud
+4. Global soundcloud client id
+5. Put event bindings on correct classes
   a) change the updateTrackNumber event for #launchpad
+6. check property and method naming consistency
+7. get rid of trackSet property on trackDetailsModel
+8. pass launchpad element to event trigger method

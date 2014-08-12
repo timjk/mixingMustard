@@ -12,5 +12,23 @@
       });
     },
 
+    setupMidiInputEvent : function() {
+      var me = this;
+
+      /*
+      Jazz.MidiInOpen(0,function(t,a){
+        if(a[2] === 0) {
+          return; // Ignore the off signal
+        }
+
+        // broadcast event...
+        var square = _.find(me.collection.models, function(element) {
+          return element.attributes.squareNumber == a[1];
+        });
+        square.play();
+      });
+      */
+    }
+
   });
 })(jQuery);

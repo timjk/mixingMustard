@@ -1,5 +1,5 @@
 (function($){
-  window.ListCollection = Backbone.Collection.extend({
+  window.SquareCollection = Backbone.Collection.extend({
     model: window.SquareModel,
 
     initialize: function() {
