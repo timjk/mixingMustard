@@ -20,7 +20,7 @@
           return;
         }
 
-        $.getJSON( "http://api.soundcloud.com/tracks/" + trackNumber + ".json?client_id=" + clientId, function( data ) {
+        $.getJSON( 'http://api.soundcloud.com/tracks/' + trackNumber + '.json?client_id=' + clientId, function( data ) {
           me.model.set('trackSet', true);
           me.model.set('trackName', data.title);
           me.model.set('artistName', data.user.username);
@@ -33,9 +33,9 @@
         });
       });
 
-    $("#changeTrackButton").on("click", function() {
-      var newTrackNumber = prompt("What would you like to change it to?");
-      $("#launchpad").trigger("updateTrackNumber", [me.model.get('squareNumber'), newTrackNumber]);
+    $('#changeTrackButton').on('click', function() {
+      var newTrackNumber = prompt('What would you like to change it to?');
+      $('#launchpad').trigger('updateTrackNumber', [me.model.get('squareNumber'), newTrackNumber]);
     });
 
     },
