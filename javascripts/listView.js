@@ -3,14 +3,23 @@
     el: $('body'),
 
     initialize: function(){
+      var me = this;
       _.bindAll(this, 'render');
 
       this.setupMidiInputEvent();
 
       this.collection = new window.ListCollection();
-      $("#launchpad").addClass(".col-md-4");
 
       this.render();
+
+      // this is after this.render() because #launchpad doesn't exist yet. Change this...
+      $("#launchpad").addClass(".col-md-4");
+      $("#launchpad").on("updateTrackNumber", function(event, squareNumber, trackNumber) {
+        var square = _.find(me.collection.models, function(element) {
+          return element.get('squareNumber') === squareNumber;
+        });
+        square.set('trackNumber', trackNumber);
+      });
     },
 
     // This should be moved to libInitialisation.js

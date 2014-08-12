@@ -42,8 +42,10 @@
     },
 
     squareClicked: function() {
-      $('#trackDetails').trigger('selectedChanged', [this.model.get('trackNumber')]);
-      this.model.play();
+      $('#trackDetails').trigger('selectedChanged', [this.model.get('trackNumber'), this.model.get('squareNumber')]);
+      if (this.model.get('trackNumber') != -1) {
+        this.model.play();
+      }
     }
   });
 })(jQuery);

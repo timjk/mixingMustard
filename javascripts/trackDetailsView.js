@@ -4,14 +4,18 @@
 
     initialize: function() {
       var me = this;
+      $("#trackDetails").append("<div id = trackDetailsInfo></div>");
+      $("#trackDetails").append("<button id = 'changeTrackButton'>Change Track</button>");
       $("#trackDetails").addClass(".col-md-8");
 
-      $("#trackDetails").on("selectedChanged", function(event, trackNumber) {
+      $("#trackDetails").on("selectedChanged", function(event, trackNumber, squareNumber) {
         var clientId = '6603d805dad113c51b7df28b6737f2cc';
+
+        me.model.set('squareNumber', squareNumber);
 
         if (trackNumber == -1) {
           me.model.set('trackSet', false);
-          me.model.set('albumArt', './img/smile.png');
+          me.model.set('albumArt', './img/default.png');
           me.render();
           return;
         }
@@ -29,6 +33,11 @@
         });
       });
 
+    $("#changeTrackButton").on("click", function() {
+      var newTrackNumber = prompt("What would you like to change it to?");
+      $("#launchpad").trigger("updateTrackNumber", [me.model.get('squareNumber'), newTrackNumber]);
+    });
+
     },
 
     render: function() {
@@ -37,22 +46,25 @@
        // or
        this.$el.append('<p>' + this.model.get('trackName') + '</p>');
       */
-      if(this.model.get('trackSet') === false) {
-        var trackNameLine = '<p>No Track Set.</p>';
-        var albumArtLine = '<img src=' + this.model.get('albumArt') + '/>';
-        var addTrackLine = '<button>Add Track</button>';
 
-        $('#trackDetails').html(trackNameLine + albumArtLine + addTrackLine);
-        return this;
+      var squareNumberLine = '<p>Square: ' + this.model.get('squareNumber') + '</p>';
+      var trackNameLine;
+      var artistNameLine;
+      var albumArtLine;
+
+      if(this.model.get('trackSet') === false) {
+        trackNameLine = '<p>No Track Set.</p>';
+        artistNameLine = '<p>No Track Set.</p>';
+        albumArtLine = '<img src=' + this.model.get('albumArt') + '/>';
+      } else {
+        trackNameLine = '<p>' + this.model.get('trackName') + '</p>';
+        artistNameLine = '<p>' + this.model.get('artistName') + '</p>';
+        albumArtLine = '<img src =' + this.model.get('albumArt') + '/>';
       }
 
-      var trackNameLine = '<p>' + this.model.get('trackName') + '</p>';
-      var artistNameLine = '<p>' + this.model.get('artistName') + '</p>';
-      var albumArtLine = '<img src =' + this.model.get('albumArt') + '/>';
+      var html = squareNumberLine + trackNameLine + artistNameLine + albumArtLine;
 
-      var html = trackNameLine + artistNameLine + albumArtLine;
-
-      $('#trackDetails').html(html);
+      $('#trackDetailsInfo').html(html);
       return this;
     }
   });
