@@ -2,6 +2,7 @@ Launch Cloud
 ========
 
 Cue SoundCloud clips from your Launchpad
+[![Code Climate](https://codeclimate.com/github/SimonHFrost/launch_cloud/badges/gpa.svg)](https://codeclimate.com/github/SimonHFrost/launch_cloud)
 
 
 Useful tracks numbers
