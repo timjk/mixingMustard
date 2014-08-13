@@ -2,6 +2,9 @@
   window.TrackDetailsView = Backbone.View.extend({
     id: 'trackDetails',
     className: 'col-md-7',
+    events : {
+      'click #changeTrackButton' : 'buttonClicked'
+    },
 
     initialize: function() {
       var me = this;
@@ -34,12 +37,11 @@
       });
 
       this.render();
+    },
 
-      // I could pass in the launchpad element here
-      $('#changeTrackButton').on('click', function() {
-        var newTrackNumber = prompt('What would you like to change it to?');
-        $('#launchpad').trigger('updateTrackNumber', [me.model.get('squareNumber'), newTrackNumber]);
-      });
+    buttonClicked: function() {
+      var newTrackNumber = prompt('What would you like to change it to?');
+      $('#launchpad').trigger('updateTrackNumber', [this.model.get('squareNumber'), newTrackNumber]);
     },
 
     render: function() {

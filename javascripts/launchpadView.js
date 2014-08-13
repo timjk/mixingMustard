@@ -4,6 +4,7 @@
     className: 'col-md-5',
 
     initialize: function() {
+      var me = this;
       this.squareCollection = new window.SquareCollection();
       this.render();
 
