@@ -48,6 +48,12 @@ h3 {
   margin: 3px;
 }
 
+.selectedSquare {
+  border-style: solid;
+  border-color: yellow;
+  border-width: 4px;
+}
+
 button {
   color: black;
 }

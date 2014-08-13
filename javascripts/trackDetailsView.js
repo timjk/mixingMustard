@@ -1,7 +1,7 @@
 (function($){
   window.TrackDetailsView = Backbone.View.extend({
     id: 'trackDetails',
-    className: 'col-md-7',
+    className: 'col-md-6',
     events : {
       'click #changeTrackButton' : 'buttonClicked'
     },
@@ -50,14 +50,13 @@
       var trackName = this.model.get('trackSet') ? this.model.get('trackName') : 'No Track Set.';
       var artistName = this.model.get('trackSet') ? this.model.get('artistName') : 'No Artist Set.';
 
-      var squareNumberLine = '<p>Square: ' + this.model.get('squareNumber') + '</p>';
       var trackNameLine = '<p>' + trackName + '</p>';
       var artistNameLine = '<p>' + artistName + '</p>';
       var albumArtLine = '<img src=' + this.model.get('albumArt') + '/>';
 
       var button = '<button id = "changeTrackButton">Change Track</button>';
 
-      var html = squareNumberLine + trackNameLine + artistNameLine + albumArtLine + '<br/>' + button;
+      var html = trackNameLine + artistNameLine + albumArtLine + '<br/>' + button;
 
       $(this.el).html(html);
       return this;
