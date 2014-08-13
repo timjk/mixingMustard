@@ -1,7 +1,7 @@
 (function($){
   window.TrackDetailsView = Backbone.View.extend({
     id: 'trackDetails',
-    className: '.col-md-8',
+    className: 'col-md-7',
 
     initialize: function() {
       var me = this;

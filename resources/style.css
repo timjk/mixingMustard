@@ -1,6 +1,7 @@
 body {
   color: white;
-  background-color:black;
+  background-image: url('/img/tweed.png');
+  background-repeat: repeat-x repeat-y;
 }
 
 .hidden {
@@ -21,10 +22,6 @@ h3 {
     text-align:center;
 }
 
-.squareContainer {
-  display: inline;
-}
-
 #mainView {
   background-color: purple;
 }
@@ -32,15 +29,23 @@ h3 {
 #launchpad,
 #trackDetails {
   padding: 20px;
-  float: left;
 }
 
 #launchpad {
+  text-align: center;
   background-color: blue;
 }
 
 #trackDetails {
   background-color: red;
+}
+
+.squareContainer {
+  display: inline;
+}
+
+.square {
+  margin: 3px;
 }
 
 button {

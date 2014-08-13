@@ -2,6 +2,7 @@ Launch Cloud
 ========
 
 Cue SoundCloud clips from your Launchpad
+
 [![Code Climate](https://codeclimate.com/github/SimonHFrost/launch_cloud/badges/gpa.svg)](https://codeclimate.com/github/SimonHFrost/launch_cloud)
 
 
@@ -28,3 +29,8 @@ When I'm cleaning up
 5. check property and method naming consistency
 6. get rid of trackSet property on trackDetailsModel
 7. pass launchpad element to event trigger method
+8. consistent whitespace for method calls/definitions
+9. don't render in initializer
+10. change $(this.el) to this.$el
+
+for future: listen function is managed by backbone and prevents memory leaks

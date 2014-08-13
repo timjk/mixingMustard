@@ -2,7 +2,7 @@
   window.SquareView = Backbone.View.extend({
     className: 'squareContainer',
     events : {
-      'click .square' : 'squareClicked'
+      'click' : 'squareClicked'
     },
 
     initialize: function() {
@@ -11,6 +11,8 @@
       this.LAUNCHPAD_GREEN = 60;
 
       this.listenTo(this.model, 'change', this.render);
+
+      this.render();
     },
 
     render: function() {
@@ -21,9 +23,9 @@
       if (trackNumber != -1) {
         /*
         if(this.model.get('playing')) {
-          window.LibraryInitialiser.Jazz.MidiOut(0x90, squareNumber, this.LAUNCHPAD_AMBER);
+          Jazz.MidiOut(0x90, squareNumber, this.LAUNCHPAD_AMBER);
         } else {
-          window.LibraryInitialiser.Jazz.MidiOut(0x90, squareNumber, this.LAUNCHPAD_GREEN);
+          Jazz.MidiOut(0x90, squareNumber, this.LAUNCHPAD_GREEN);
         }
         */
       }
@@ -42,7 +44,6 @@
     },
 
     squareClicked: function() {
-      debugger;
       $('#trackDetails').trigger('selectedChanged', [this.model.get('trackNumber'), this.model.get('squareNumber')]);
       if (this.model.get('trackNumber') != -1) {
         this.model.play();

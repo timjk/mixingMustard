@@ -24,7 +24,8 @@
     play: function() {
       this.set('playing', true);
       this.get('cachedSound').stop();
-      this.get('cachedSound').setPosition(this.get('position')); // this doesn't work yet
+      // position doesn't work yet
+      // this.get('cachedSound').setPosition(this.get('position'));
       this.get('cachedSound').play();
     }
   });

@@ -1,7 +1,7 @@
 (function($){
   window.LaunchpadView = Backbone.View.extend({
     id: 'launchpad',
-    className: '.col-md-4',
+    className: 'col-md-5',
 
     initialize: function() {
       this.squareCollection = new window.SquareCollection();
@@ -21,7 +21,7 @@
         var squareView = new window.SquareView({
           model: square
         });
-        $(this.el).append(squareView.render().el);
+        $(this.el).append(squareView.el);
 
         if(squareCount % 8 === 0) {
           $(this.el).append('<br/>');
