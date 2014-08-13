@@ -28,9 +28,11 @@
           me.model.set('trackName', data.title);
           me.model.set('artistName', data.user.username);
           if (data.artwork_url) {
-            me.model.set('albumArt', data.artwork_url);
+            var artwork = data.artwork_url.replace('large', 't300x300');
+            me.model.set('albumArt', artwork);
           } else {
-            me.model.set('albumArt', data.user.avatar_url);
+            var artwork = data.user.avatar_url.replace('large', 't300x300');
+            me.model.set('albumArt', artwork);
           }
           me.render();
         });
@@ -45,23 +47,17 @@
     },
 
     render: function() {
-      var squareNumberLine = '<p>Square: ' + this.model.get('squareNumber') + '</p>';
-      var trackNameLine;
-      var artistNameLine;
-      var albumArtLine;
+      var trackName = this.model.get('trackSet') ? this.model.get('trackName') : 'No Track Set.';
+      var artistName = this.model.get('trackSet') ? this.model.get('artistName') : 'No Artist Set.';
 
-      if(this.model.get('trackSet') === false) {
-        trackNameLine = '<p>No Track Set.</p>';
-        artistNameLine = '<p>No Track Set.</p>';
-        albumArtLine = '<img src=' + this.model.get('albumArt') + '/>';
-      } else {
-        trackNameLine = '<p>' + this.model.get('trackName') + '</p>';
-        artistNameLine = '<p>' + this.model.get('artistName') + '</p>';
-        albumArtLine = '<img src =' + this.model.get('albumArt') + '/>';
-      }
+      var squareNumberLine = '<p>Square: ' + this.model.get('squareNumber') + '</p>';
+      var trackNameLine = '<p>' + trackName + '</p>';
+      var artistNameLine = '<p>' + artistName + '</p>';
+      var albumArtLine = '<img src=' + this.model.get('albumArt') + '/>';
+
       var button = '<button id = "changeTrackButton">Change Track</button>';
 
-      var html = squareNumberLine + trackNameLine + artistNameLine + albumArtLine + button;
+      var html = squareNumberLine + trackNameLine + artistNameLine + albumArtLine + '<br/>' + button;
 
       $(this.el).html(html);
       return this;
