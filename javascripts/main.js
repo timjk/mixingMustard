@@ -1,3 +1,3 @@
 var libraryInitialiser = new window.LibraryInitialiser();
 var mainView = new window.MainView();
-$(document.body).append(mainView.el);
+$(document.body).append(mainView.render().$el);

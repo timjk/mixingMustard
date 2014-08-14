@@ -6,7 +6,6 @@
     initialize: function() {
       var me = this;
       this.squareCollection = new window.SquareCollection();
-      this.render();
 
       this.$el.on('updateTrackNumber', function(event, squareNumber, trackNumber) {
         var square = _.find(me.squareCollection.models, function(element) {
@@ -22,13 +21,14 @@
         var squareView = new window.SquareView({
           model: square
         });
-        this.$el.append(squareView.el);
+        this.$el.append(squareView.render().$el);
 
         if(squareCount % 8 === 0) {
           this.$el.append('<br/>');
         }
         squareCount++;
       }, this);
+      return this;
     },
   });
 })(jQuery);

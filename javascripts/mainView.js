@@ -3,10 +3,6 @@
     id: 'mainView',
     className: 'container',
 
-    initialize: function(){
-      this.render();
-    },
-
     render: function(){
       var me = this;
 
@@ -16,8 +12,10 @@
       var launchpadView = new window.LaunchpadView();
       var trackDetailsView = new window.TrackDetailsView();
 
-      this.$el.append(launchpadView.el);
-      this.$el.append(trackDetailsView.el);
+      this.$el.append(launchpadView.render().$el);
+      this.$el.append(trackDetailsView.render().$el);
+
+      return this;
     }
   });
 })(jQuery);

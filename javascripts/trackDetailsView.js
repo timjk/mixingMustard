@@ -35,8 +35,6 @@
           me.render();
         });
       });
-
-      this.render();
     },
 
     buttonClicked: function() {

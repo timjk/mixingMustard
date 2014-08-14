@@ -11,8 +11,6 @@
       this.LAUNCHPAD_GREEN = 60;
 
       this.listenTo(this.model, 'change', this.render);
-
-      this.render();
     },
 
     render: function() {

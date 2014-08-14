@@ -24,12 +24,11 @@ My tracks
 When I'm cleaning up
 --------
 Check view/model responsibilites are correct
-Image/link to soundcloud
 Global soundcloud client id
 check property and method naming consistency
 get rid of trackSet property on trackDetailsModel
 pass launchpad element to event trigger method
 consistent whitespace for method calls/definitions
-don't render in initializer
+order of functions, render at end etc
 
 for future: listen function is managed by backbone and prevents memory leaks
