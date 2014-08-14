@@ -1,9 +1,9 @@
-(function($){
+(function($) {
   window.MainView = Backbone.View.extend({
     id: 'mainView',
     className: 'container',
 
-    render: function(){
+    render: function() {
       var me = this;
 
       this.$el.append('<h1>Launch Cloud</h1>');

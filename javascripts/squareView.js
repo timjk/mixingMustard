@@ -1,8 +1,8 @@
-(function($){
+(function($) {
   window.SquareView = Backbone.View.extend({
     className: 'squareContainer',
-    events : {
-      'click' : 'squareClicked'
+    events: {
+      'click': 'squareClicked'
     },
 
     initialize: function() {
@@ -16,7 +16,7 @@
     render: function() {
       var squareNumber = this.model.get('squareNumber');
       var trackNumber = this.model.get('trackNumber');
-      var buttonImage = this.decideImageToUse();
+      var buttonImage = this.model.decideImageToUse();
 
       if (trackNumber != -1) {
         /*
@@ -28,17 +28,8 @@
         */
       }
 
-      this.$el.html('<img class="square" src="' + buttonImage + '"/>');
+      this.$el.html('<img class = "square" src = "' + buttonImage + '"/>');
       return this;
-    },
-
-    decideImageToUse: function() {
-      var trackNumber = this.model.get('trackNumber');
-      var buttonImage = trackNumber != -1 ? './img/button-active.png' : './img/button-passive.png';
-      if (this.model.get('playing') && trackNumber != -1) {
-        buttonImage = './img/button-playing.png';
-      }
-      return buttonImage;
     },
 
     squareClicked: function() {

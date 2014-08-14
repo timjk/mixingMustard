@@ -3,11 +3,11 @@
     id: 'trackDetails',
     className: 'col-md-6',
 
-    events : {
-      'click #changeTrackButton' : 'buttonClicked'
+    events: {
+      'click #changeTrackButton': 'buttonClicked'
     },
 
-    template : _.template('<img class = "albumArt" src="<%= albumArt %>"/>' +
+    template: _.template('<img class = "albumArt" src = "<%= albumArt %>"/>' +
                           '<div>' +
                             '<div class = "trackDetailsInfo"><p><%= trackName %></p></div>' +
                             '<div class = "trackDetailsInfo"><p><%= artistName %></p></div>' +
@@ -20,32 +20,12 @@
       this.model = new window.TrackDetailsModel();
 
       this.$el.on('selectedChanged', function(event, trackNumber, squareNumber) {
-        me.model.set('squareNumber', squareNumber);
-
         if (trackNumber == -1) {
-          me.model.set('trackSet', false);
-          me.model.set('albumArt', './img/default.png');
-          me.render();
-          return;
-        }
-
-        me.setModelData(trackNumber);
-      });
-    },
-
-    setModelData: function(trackNumber) {
-      var me = this;
-      $.getJSON('http://api.soundcloud.com/tracks/' + trackNumber + '.json?client_id=' + window.CLIENT_ID, function(trackInfo) {
-        me.model.set('trackSet', true);
-        me.model.set('trackName', trackInfo.title);
-        me.model.set('artistName', trackInfo.user.username);
-        if (trackInfo.artwork_url) {
-          me.model.set('albumArt', trackInfo.artwork_url);
+          me.model.setInvalid(squareNumber, me);
         } else {
-          me.model.set('albumArt', trackInfo.user.avatar_url);
+          me.model.setModelData(squareNumber, trackNumber, me);
         }
         me.render();
-        return;
       });
     },
 
@@ -55,8 +35,8 @@
     },
 
     render: function() {
-      var trackName = this.model.get('trackSet') ? this.model.get('trackName') : 'No Track Set.';
-      var artistName = this.model.get('trackSet') ? this.model.get('artistName') : 'No Artist Set.';
+      var trackName = this.model.isValid() ? this.model.get('trackName') : 'No Track Set.';
+      var artistName = this.model.isValid() ? this.model.get('artistName') : 'No Artist Set.';
       var albumArt = this.model.get('albumArt');
 
       var templateMappings = {'trackName' : trackName, 'artistName' : artistName, 'albumArt' : albumArt};

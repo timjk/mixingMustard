@@ -23,12 +23,9 @@ My tracks
 
 When I'm cleaning up
 --------
-Check view/model responsibilites are correct
-Global soundcloud client id
-check property and method naming consistency
+clean css
 get rid of trackSet property on trackDetailsModel
 pass launchpad element to event trigger method
-consistent whitespace for method calls/definitions
 order of functions, render at end etc
 
-for future: listen function is managed by backbone and prevents memory leaks
+for future: use listen function instead of on because it's managed by backbone and prevents memory leaks

@@ -1,4 +1,4 @@
-(function($){
+(function($) {
   window.LaunchpadView = Backbone.View.extend({
     id: 'launchpad',
     className: 'col-md-6',
