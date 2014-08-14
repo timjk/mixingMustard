@@ -17,7 +17,7 @@
 
     render: function() {
       var squareCount = 1;
-      _(this.squareCollection.models).each(function(square){
+      _(this.squareCollection.models).each(function(square) {
         var squareView = new window.SquareView({
           model: square
         });

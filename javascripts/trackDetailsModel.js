@@ -1,4 +1,4 @@
-(function($){
+(function($) {
   window.TrackDetailsModel = Backbone.Model.extend({
     defaults: {
       squareNumber: -1,
@@ -16,7 +16,7 @@
       var me = this;
       this.set('squareNumber', squareNumber);
 
-      $.getJSON('http://api.soundcloud.com/tracks/' + trackNumber + '.json?client_id=' + window.CLIENT_ID, function(trackInfo) {
+      $.getJSON('http://api.soundcloud.com/tracks/' + trackNumber + '.json?client_id = ' + window.CLIENT_ID, function(trackInfo) {
         me.set('trackSet', true);
         me.set('trackName', trackInfo.title);
         me.set('artistName', trackInfo.user.username);
@@ -34,6 +34,6 @@
       this.set('trackSet', false);
       this.set('albumArt', './img/default.png');
       view.render();
-    }
+    },
   });
 })(jQuery);

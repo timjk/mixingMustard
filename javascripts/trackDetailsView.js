@@ -1,4 +1,4 @@
-(function($){
+(function($) {
   window.TrackDetailsView = Backbone.View.extend({
     id: 'trackDetails',
     className: 'col-md-6',
@@ -29,11 +29,6 @@
       });
     },
 
-    buttonClicked: function() {
-      var newTrackNumber = prompt('What would you like to change it to?');
-      $('#launchpad').trigger('updateTrackNumber', [this.model.get('squareNumber'), newTrackNumber]);
-    },
-
     render: function() {
       var trackName = this.model.isValid() ? this.model.get('trackName') : 'No Track Set.';
       var artistName = this.model.isValid() ? this.model.get('artistName') : 'No Artist Set.';
@@ -42,6 +37,11 @@
       var templateMappings = {'trackName' : trackName, 'artistName' : artistName, 'albumArt' : albumArt};
       this.$el.html(this.template(templateMappings));
       return this;
-    }
+    },
+
+    buttonClicked: function() {
+      var newTrackNumber = prompt('What would you like to change it to?');
+      $('#launchpad').trigger('updateTrackNumber', [this.model.get('squareNumber'), newTrackNumber]);
+    },
   });
 })(jQuery);

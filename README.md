@@ -23,9 +23,6 @@ My tracks
 
 When I'm cleaning up
 --------
-clean css
 get rid of trackSet property on trackDetailsModel
-pass launchpad element to event trigger method
-order of functions, render at end etc
 
 for future: use listen function instead of on because it's managed by backbone and prevents memory leaks

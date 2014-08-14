@@ -39,6 +39,6 @@
         this.model.play();
       }
       $('.square', this.$el).addClass('selectedSquare');
-    }
+    },
   });
 })(jQuery);

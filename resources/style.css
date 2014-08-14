@@ -1,7 +1,13 @@
+/* Top Elements */
+
 body {
   color: white;
   background-image: url('/img/tweed.png');
   background-repeat: repeat-x repeat-y;
+}
+
+.container {
+  padding-bottom: 20px;
 }
 
 .hidden {
@@ -22,6 +28,8 @@ h3 {
     text-align: center;
 }
 
+/* Parent Elements */
+
 #mainView {
   background-color: purple;
 }
@@ -41,6 +49,8 @@ h3 {
   background-color: red;
 }
 
+/* Launchpad Elements */
+
 .squareContainer {
   display: inline;
 }
@@ -56,27 +66,25 @@ h3 {
   margin: 1px;
 }
 
-button {
-  font-size: 20px;
-  margin-top: 20px;
-  color: black;
-  width: 100%;
+/* Track Details Elements */
+
+.trackDetailsInfo {
   height: 50px;
+  line-height: 50px;
 }
 
 .albumArt {
   float: left;
 }
 
-.container {
-  padding-bottom: 20px;
-}
-
 p {
   font-size: 20px;
 }
 
-.trackDetailsInfo {
+button {
+  font-size: 20px;
+  margin-top: 20px;
+  color: black;
+  width: 100%;
   height: 50px;
-  line-height: 50px;
 }

@@ -16,6 +16,6 @@
       this.$el.append(trackDetailsView.render().$el);
 
       return this;
-    }
+    },
   });
 })(jQuery);
