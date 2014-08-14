@@ -16,7 +16,7 @@
       var me = this;
       this.set('squareNumber', squareNumber);
 
-      $.getJSON('http://api.soundcloud.com/tracks/' + trackNumber + '.json?client_id = ' + window.CLIENT_ID, function(trackInfo) {
+      $.getJSON('http://api.soundcloud.com/tracks/' + trackNumber + '.json?client_id=' + window.CLIENT_ID, function(trackInfo) {
         me.set('trackSet', true);
         me.set('trackName', trackInfo.title);
         me.set('artistName', trackInfo.user.username);
