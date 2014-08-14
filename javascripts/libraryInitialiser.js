@@ -6,8 +6,10 @@
       // Jazz.MidiOutOpen('Launchpad');
       // Jazz.MidiOut(176,0,0); // Reset the launchpad
 
+      window.CLIENT_ID = '6603d805dad113c51b7df28b6737f2cc';
+
       SC.initialize({
-        client_id: '6603d805dad113c51b7df28b6737f2cc',
+        client_id: window.CLIENT_ID,
         redirect_uri: 'http://example.com/callback.html',
       });
     },

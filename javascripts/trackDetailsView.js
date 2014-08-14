@@ -20,8 +20,6 @@
       this.model = new window.TrackDetailsModel();
 
       this.$el.on('selectedChanged', function(event, trackNumber, squareNumber) {
-        var clientId = '6603d805dad113c51b7df28b6737f2cc';
-
         me.model.set('squareNumber', squareNumber);
 
         if (trackNumber == -1) {
@@ -31,17 +29,23 @@
           return;
         }
 
-        $.getJSON( 'http://api.soundcloud.com/tracks/' + trackNumber + '.json?client_id=' + clientId, function( data ) {
-          me.model.set('trackSet', true);
-          me.model.set('trackName', data.title);
-          me.model.set('artistName', data.user.username);
-          if (data.artwork_url) {
-            me.model.set('albumArt', data.artwork_url);
-          } else {
-            me.model.set('albumArt', data.user.avatar_url);
-          }
-          me.render();
-        });
+        me.setModelData(trackNumber);
+      });
+    },
+
+    setModelData: function(trackNumber) {
+      var me = this;
+      $.getJSON('http://api.soundcloud.com/tracks/' + trackNumber + '.json?client_id=' + window.CLIENT_ID, function(trackInfo) {
+        me.model.set('trackSet', true);
+        me.model.set('trackName', trackInfo.title);
+        me.model.set('artistName', trackInfo.user.username);
+        if (trackInfo.artwork_url) {
+          me.model.set('albumArt', trackInfo.artwork_url);
+        } else {
+          me.model.set('albumArt', trackInfo.user.avatar_url);
+        }
+        me.render();
+        return;
       });
     },
 
