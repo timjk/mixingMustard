@@ -54,7 +54,7 @@
 
       var button = '<button id = "changeTrackButton">Change Track</button>';
 
-      var html = albumArtLine + '<div>' + trackNameLine + artistNameLine + button + '</div>';
+      var html = albumArtLine + '<div><div style="height: 50px; line-height: 50px;">' + trackNameLine + '</div><div style="height: 50px; line-height: 50px;">' + artistNameLine + '</div></div>' + button;
 
       $(this.el).html(html);
       return this;
