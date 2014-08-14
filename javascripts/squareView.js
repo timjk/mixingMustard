@@ -30,7 +30,7 @@
         */
       }
 
-      $(this.el).html('<img class="square" src="' + buttonImage + '"/>');
+      this.$el.html('<img class="square" src="' + buttonImage + '"/>');
       return this;
     },
 

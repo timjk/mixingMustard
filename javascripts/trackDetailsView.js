@@ -11,7 +11,7 @@
 
       this.model = new window.TrackDetailsModel();
 
-      $(this.el).on('selectedChanged', function(event, trackNumber, squareNumber) {
+      this.$el.on('selectedChanged', function(event, trackNumber, squareNumber) {
         var clientId = '6603d805dad113c51b7df28b6737f2cc';
 
         me.model.set('squareNumber', squareNumber);
@@ -56,7 +56,7 @@
 
       var html = albumArtLine + '<div><div style="height: 50px; line-height: 50px;">' + trackNameLine + '</div><div style="height: 50px; line-height: 50px;">' + artistNameLine + '</div></div>' + button;
 
-      $(this.el).html(html);
+      this.$el.html(html);
       return this;
     }
   });

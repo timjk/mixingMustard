@@ -8,7 +8,7 @@
       this.squareCollection = new window.SquareCollection();
       this.render();
 
-      $(this.el).on('updateTrackNumber', function(event, squareNumber, trackNumber) {
+      this.$el.on('updateTrackNumber', function(event, squareNumber, trackNumber) {
         var square = _.find(me.squareCollection.models, function(element) {
           return element.get('squareNumber') === squareNumber;
         });
@@ -22,10 +22,10 @@
         var squareView = new window.SquareView({
           model: square
         });
-        $(this.el).append(squareView.el);
+        this.$el.append(squareView.el);
 
         if(squareCount % 8 === 0) {
-          $(this.el).append('<br/>');
+          this.$el.append('<br/>');
         }
         squareCount++;
       }, this);
