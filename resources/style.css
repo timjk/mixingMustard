@@ -75,3 +75,8 @@ button {
 p {
   font-size: 20px;
 }
+
+.trackDetailsInfo {
+  height: 50px;
+  line-height: 50px;
+}

@@ -2,9 +2,17 @@
   window.TrackDetailsView = Backbone.View.extend({
     id: 'trackDetails',
     className: 'col-md-6',
+
     events : {
       'click #changeTrackButton' : 'buttonClicked'
     },
+
+    template : _.template('<img class = "albumArt" src="<%= albumArt %>"/>' +
+                          '<div>' +
+                            '<div class = "trackDetailsInfo"><p><%= trackName %></p></div>' +
+                            '<div class = "trackDetailsInfo"><p><%= artistName %></p></div>' +
+                          '</div>' +
+                          '<button id = "changeTrackButton">Change Track</button>'),
 
     initialize: function() {
       var me = this;
@@ -45,16 +53,10 @@
     render: function() {
       var trackName = this.model.get('trackSet') ? this.model.get('trackName') : 'No Track Set.';
       var artistName = this.model.get('trackSet') ? this.model.get('artistName') : 'No Artist Set.';
+      var albumArt = this.model.get('albumArt');
 
-      var trackNameLine = '<p>' + trackName + '</p>';
-      var artistNameLine = '<p>' + artistName + '</p>';
-      var albumArtLine = '<img class = "albumArt" src=' + this.model.get('albumArt') + '/>';
-
-      var button = '<button id = "changeTrackButton">Change Track</button>';
-
-      var html = albumArtLine + '<div><div style="height: 50px; line-height: 50px;">' + trackNameLine + '</div><div style="height: 50px; line-height: 50px;">' + artistNameLine + '</div></div>' + button;
-
-      this.$el.html(html);
+      var templateMappings = {'trackName' : trackName, 'artistName' : artistName, 'albumArt' : albumArt};
+      this.$el.html(this.template(templateMappings));
       return this;
     }
   });
