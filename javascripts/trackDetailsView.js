@@ -28,11 +28,9 @@
           me.model.set('trackName', data.title);
           me.model.set('artistName', data.user.username);
           if (data.artwork_url) {
-            var artwork = data.artwork_url.replace('large', 't300x300');
-            me.model.set('albumArt', artwork);
+            me.model.set('albumArt', data.artwork_url);
           } else {
-            var artwork = data.user.avatar_url.replace('large', 't300x300');
-            me.model.set('albumArt', artwork);
+            me.model.set('albumArt', data.user.avatar_url);
           }
           me.render();
         });
@@ -52,11 +50,11 @@
 
       var trackNameLine = '<p>' + trackName + '</p>';
       var artistNameLine = '<p>' + artistName + '</p>';
-      var albumArtLine = '<img src=' + this.model.get('albumArt') + '/>';
+      var albumArtLine = '<img class = "albumArt" src=' + this.model.get('albumArt') + '/>';
 
       var button = '<button id = "changeTrackButton">Change Track</button>';
 
-      var html = trackNameLine + artistNameLine + albumArtLine + '<br/>' + button;
+      var html = albumArtLine + '<div>' + trackNameLine + artistNameLine + button + '</div>';
 
       $(this.el).html(html);
       return this;
