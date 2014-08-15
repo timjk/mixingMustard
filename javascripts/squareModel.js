@@ -25,8 +25,7 @@
       this.set('playing', true);
       if (this.get('cachedSound')) {
         this.get('cachedSound').stop();
-        // position doesn't work yet
-        // this.get('cachedSound').setPosition(this.get('position'));
+        this.get('cachedSound').setPosition(this.get('position'));
         this.get('cachedSound').play();
       } else {
         console.warn('Tried to play a track on square ' + this.squareNumber + ' that hasn\'t cached yet');

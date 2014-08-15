@@ -4,7 +4,8 @@
     className: 'col-md-6',
 
     events: {
-      'click #changeTrackButton': 'buttonClicked'
+      'click #changeTrackButton': 'changeTrackClicked',
+      'click #changePositionButton': 'changePositionClicked'
     },
 
     template: _.template('<img style = "width: 100px; height: 100px;" class = "albumArt" src = "<%= albumArt %>"/>' +
@@ -12,7 +13,8 @@
                             '<div class = "trackDetailsInfo"><p><%= trackName %></p></div>' +
                             '<div class = "trackDetailsInfo"><p><%= artistName %></p></div>' +
                           '</div>' +
-                          '<button id = "changeTrackButton">Change Track</button>'),
+                          '<button id = "changeTrackButton">Change Track</button>' +
+                          '<button id = "changePositionButton">Change Position</button>'),
 
     initialize: function() {
       var me = this;
@@ -42,9 +44,21 @@
       return this;
     },
 
-    buttonClicked: function() {
-      var newTrackNumber = prompt('What would you like to change it to?');
+    changeTrackClicked: function() {
+      var newTrackNumber = prompt('Track Number:');
+      if (!newTrackNumber) {
+        return;
+      }
       $('#launchpad').trigger('updateTrackNumber', [this.model.get('squareNumber'), newTrackNumber]);
+    },
+
+    changePositionClicked: function() {
+      var position = prompt('Position (seconds): ');
+      if (!position) {
+        return;
+      }
+      position = position * 1000;
+      $('#launchpad').trigger('updatePosition', [this.model.get('squareNumber'), position]);
     },
 
     changedTrackName: function() {

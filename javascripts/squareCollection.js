@@ -38,6 +38,7 @@
       this.findWhere({squareNumber: 0}).set({'trackNumber': 139133862});
       this.findWhere({squareNumber: 1}).set({'trackNumber': 153158256});
       this.findWhere({squareNumber: 2}).set({'trackNumber': 65732315});
+      this.findWhere({squareNumber: 3}).set({'trackNumber': 158851384});
     },
   });
 })(jQuery);

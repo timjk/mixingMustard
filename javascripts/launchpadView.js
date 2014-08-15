@@ -18,6 +18,13 @@
         });
         square.set('trackNumber', trackNumber);
       });
+
+      this.$el.on('updatePosition', function(event, squareNumber, position) {
+        var square = _.find(me.squareCollection.models, function(element) {
+          return element.get('squareNumber') === squareNumber;
+        });
+        square.set('position', position);
+      });
     },
 
     render: function() {
