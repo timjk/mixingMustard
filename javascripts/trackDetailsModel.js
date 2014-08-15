@@ -15,7 +15,7 @@
       this.set('artistName', this.NO_ARTIST);
     },
 
-    setModelData: function(squareNumber, trackNumber, view) {
+    setModelData: function(squareNumber, trackNumber) {
       var me = this;
       this.set('squareNumber', squareNumber);
 
@@ -28,16 +28,14 @@
         } else {
           me.set('albumArt', trackInfo.user.avatar_url);
         }
-        view.render();
       });
     },
 
-    setInvalid: function(squareNumber, view) {
+    setInvalid: function(squareNumber) {
       this.set('squareNumber', squareNumber);
       this.set('trackName', this.NO_TRACK);
       this.set('artistName', this.NO_ARTIST);
       this.set('albumArt', './img/default.png');
-      view.render();
     },
   });
 })(jQuery);
