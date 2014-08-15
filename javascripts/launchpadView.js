@@ -25,6 +25,12 @@
         });
         square.set('position', position);
       });
+
+      this.$el.on('stopPressed', function(event, squareNumber) {
+        _.each(me.squareViewList, function(squareView) {
+          squareView.model.stop();
+        });
+      });
     },
 
     render: function() {

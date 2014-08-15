@@ -24,8 +24,6 @@ My tracks
 Notes
 --------
 
-set position on clip
 fix midi controller
-clip text for track name and artist name if too big
 
 for future: use listen function instead of on because it's managed by backbone and prevents memory leaks

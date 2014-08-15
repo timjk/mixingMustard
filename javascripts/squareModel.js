@@ -21,15 +21,26 @@
       });
     },
 
-    play: function() {
-      this.set('playing', true);
-      if (this.get('cachedSound')) {
-        this.get('cachedSound').stop();
-        this.get('cachedSound').setPosition(this.get('position'));
-        this.get('cachedSound').play();
+    execute: function() {
+      var me = this;
+      if (this.get('trackNumber') !== -1) {
+        if (this.get('cachedSound')) {
+          this.set('playing', true);
+          this.get('cachedSound').stop();
+          this.get('cachedSound').setPosition(this.get('position'));
+          this.get('cachedSound').play();
+          setTimeout(_.bind(this.stop, this), 3000);
+        } else {
+          console.warn('Tried to play a track on square ' + this.squareNumber + ' that hasn\'t cached yet');
+        }
       } else {
-        console.warn('Tried to play a track on square ' + this.squareNumber + ' that hasn\'t cached yet');
+        $('#launchpad').trigger('stopPressed', [this.get('squareNumber')]);
       }
+    },
+
+    stop: function() {
+      this.get('cachedSound').stop();
+      this.set('playing', false);
     },
 
     decideImageToUse: function() {

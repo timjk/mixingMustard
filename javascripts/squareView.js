@@ -38,9 +38,7 @@
     squareClicked: function() {
       $('.square').removeClass('selectedSquare');
 
-      if (this.model.get('trackNumber') != -1) {
-        this.model.play();
-      }
+      this.model.execute();
 
       $('.square', this.$el).addClass('selectedSquare');
       $('#trackDetails').trigger('selectedChanged', [this.model.get('trackNumber'), this.model.get('squareNumber')]);
