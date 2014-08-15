@@ -1,23 +1,28 @@
 (function($) {
   window.TrackDetailsModel = Backbone.Model.extend({
+    NO_TRACK: 'No Track Set.',
+    NO_ARTIST: 'No Artist Set.',
+
     defaults: {
       squareNumber: -1,
-      trackSet: false,
       trackName: '',
       artistName: '',
       albumArt: './img/default.png'
     },
 
-    isValid: function() {
-      return this.get('trackSet');
+    initialize: function() {
+      // Can't do this in defaults for some reason
+      // http://stackoverflow.com/questions/25324196/setting-default-as-local-variable-in-model-results-in-undefined
+      this.set('trackName', this.NO_TRACK);
+      this.set('artistName', this.NO_ARTIST);
     },
 
     setModelData: function(squareNumber, trackNumber, view) {
       var me = this;
       this.set('squareNumber', squareNumber);
 
-      $.getJSON('http://api.soundcloud.com/tracks/' + trackNumber + '.json?client_id=' + window.CLIENT_ID, function(trackInfo) {
-        me.set('trackSet', true);
+      $.getJSON('http://api.soundcloud.com/tracks/' + trackNumber + '.json?client_id=' + window.CLIENT_ID,
+        function(trackInfo) {
         me.set('trackName', trackInfo.title);
         me.set('artistName', trackInfo.user.username);
         if (trackInfo.artwork_url) {
@@ -31,7 +36,8 @@
 
     setInvalid: function(squareNumber, view) {
       this.set('squareNumber', squareNumber);
-      this.set('trackSet', false);
+      this.set('trackName', this.NO_TRACK);
+      this.set('artistName', this.NO_ARTIST);
       this.set('albumArt', './img/default.png');
       view.render();
     },

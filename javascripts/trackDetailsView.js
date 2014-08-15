@@ -30,8 +30,8 @@
     },
 
     render: function() {
-      var trackName = this.model.isValid() ? this.model.get('trackName') : 'No Track Set.';
-      var artistName = this.model.isValid() ? this.model.get('artistName') : 'No Artist Set.';
+      var trackName = this.model.get('trackName');
+      var artistName = this.model.get('artistName');
       var albumArt = this.model.get('albumArt');
 
       var templateMappings = {'trackName' : trackName, 'artistName' : artistName, 'albumArt' : albumArt};

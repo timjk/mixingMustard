@@ -23,6 +23,5 @@ My tracks
 
 When I'm cleaning up
 --------
-get rid of trackSet property on trackDetailsModel
 
 for future: use listen function instead of on because it's managed by backbone and prevents memory leaks

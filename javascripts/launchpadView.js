@@ -28,6 +28,7 @@
         }
         squareCount++;
       }, this);
+
       return this;
     },
   });
