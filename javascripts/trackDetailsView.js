@@ -22,7 +22,7 @@
       this.model = new window.TrackDetailsModel();
 
       this.model.on("change:trackName", this.changedTrackName, this);
-      this.model.on("change:artistName", this.changedArtist, this);
+      this.model.on("change:artistName", this.changedArtistName, this);
       this.model.on("change:albumArt", this.changedAlbumArt, this);
 
       this.$el.on('selectedChanged', function(event, trackNumber, squareNumber) {
