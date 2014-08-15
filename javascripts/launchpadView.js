@@ -5,6 +5,7 @@
 
     initialize: function() {
       var me = this;
+
       this.squareCollection = new window.SquareCollection();
       this.squareViewList = _.map(this.squareCollection.models, function(square) {
         return new window.SquareView({

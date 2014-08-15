@@ -2,8 +2,11 @@
   window.LibraryInitialiser = Backbone.Model.extend({
 
     initialize: function() {
+      this.setupSoundcloud();
       this.setupWebMidi();
+    },
 
+    setupSoundcloud: function() {
       window.CLIENT_ID = '6603d805dad113c51b7df28b6737f2cc';
 
       SC.initialize({
@@ -12,22 +15,25 @@
       });
     },
 
-    setupWebMidi : function() {
-      function onMIDISuccess(midiAccess) {
-        window.Midi = midiAccess;
-        // is it always 0?
-        window.Midi.inputs()[0].onmidimessage = onMIDIMessage;
-      }
-
-      function onMIDIFailure(msg) {
-        console.log("Failed to get MIDI access - " + msg );
-      }
-
-      navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
-
-      function onMIDIMessage(event) {
-        $('#launchpad').trigger('midiInput', event.data[1]);
-      }
+    setupWebMidi: function() {
+      navigator.requestMIDIAccess().then(this.onMidiSuccess, this.onMidiFailure, this);
     },
+
+    onMidiSuccess: function(midiAccess) {
+      window.Midi = midiAccess;
+      // is the device always 0?
+      window.Midi.outputs()[0].send([176, 0, 0]); // reset launchpad
+      window.Midi.inputs()[0].onmidimessage = function(event) {
+        $('#launchpad').trigger('midiInput', event.data[1]);
+      };
+    },
+
+    onMidiFailure: function(msg) {
+      console.log("Failed to get MIDI access - " + msg );
+    },
+
+    onMidiMessage: function(event) {
+      $('#launchpad').trigger('midiInput', event.data[1]);
+    }
   });
 })(jQuery);

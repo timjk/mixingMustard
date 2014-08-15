@@ -16,7 +16,7 @@
 
     render: function() {
       this.$el.html('<img class = "square" src = "' + this.model.decideImageToUse() + '"/>');
-      this.lightLaunchpad();
+      // this.lightLaunchpad();
       return this;
     },
 
@@ -25,10 +25,13 @@
       var trackNumber = this.model.get('trackNumber');
 
       if (trackNumber != -1) {
-        // do stuff
-        var noteOnMessage = [0x90, 60, 0x7f];    // note on, middle C, full velocity
-        // var output = window.Midi.outputs.entries[indexOfPort];
-        // output.send( noteOnMessage );  //omitting the timestamp means send immediately.
+        var message;
+        if (this.model.get('playing')) {
+          message = [0x90, squareNumber, this.LAUNCHPAD_GREEN];
+        } else {
+          message = [0x90, squareNumber, this.LAUNCHPAD_AMBER];
+        }
+        window.Midi.outputs()[0].send(message);
       }
     },
 
@@ -43,6 +46,7 @@
 
     changeImageIfNecessary: function() {
       $('img', this.$el)[0].src = this.model.decideImageToUse();
+      this.lightLaunchpad();
     },
   });
 })(jQuery);

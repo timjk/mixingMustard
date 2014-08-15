@@ -24,6 +24,7 @@ My tracks
 Notes
 --------
 
-fix midi controller
+make initial lighting of launcpad work
+consistency for eventnames and functions
 
 for future: use listen function instead of on because it's managed by backbone and prevents memory leaks
