@@ -21,7 +21,7 @@ First available tracks I could find
 My tracks
 158851384, 2397001, 97075414, 113919687
 
-When I'm cleaning up
+Notes
 --------
 
 for future: use listen function instead of on because it's managed by backbone and prevents memory leaks

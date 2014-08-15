@@ -11,8 +11,6 @@
     },
 
     initialize: function() {
-      // Can't do this in defaults for some reason
-      // http://stackoverflow.com/questions/25324196/setting-default-as-local-variable-in-model-results-in-undefined
       this.set('trackName', this.NO_TRACK);
       this.set('artistName', this.NO_ARTIST);
     },
