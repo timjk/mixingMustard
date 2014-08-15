@@ -2,9 +2,7 @@
   window.LibraryInitialiser = Backbone.Model.extend({
 
     initialize: function() {
-      Jazz = document.getElementById('Jazz1'); if(!Jazz || !Jazz.isJazz) Jazz = document.getElementById('Jazz2');
-      // Jazz.MidiOutOpen('Launchpad');
-      // Jazz.MidiOut(176,0,0); // Reset the launchpad
+      this.setupWebMidi();
 
       window.CLIENT_ID = '6603d805dad113c51b7df28b6737f2cc';
 
@@ -14,22 +12,22 @@
       });
     },
 
-    setupMidiInputEvent : function() {
-      var me = this;
+    setupWebMidi : function() {
+      function onMIDISuccess(midiAccess) {
+        window.Midi = midiAccess;
+        // is it always 0?
+        window.Midi.inputs()[0].onmidimessage = onMIDIMessage;
+      }
 
-      /*
-      Jazz.MidiInOpen(0,function(t,a){
-        if(a[2] === 0) {
-          return; // Ignore the off signal
-        }
+      function onMIDIFailure(msg) {
+        console.log("Failed to get MIDI access - " + msg );
+      }
 
-        // broadcast event...
-        var square = _.find(me.collection.models, function(element) {
-          return element.attributes.squareNumber == a[1];
-        });
-        square.play();
-      });
-      */
+      navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
+
+      function onMIDIMessage(event) {
+        $('#launchpad').trigger('midiInput', event.data[1]);
+      }
     },
   });
 })(jQuery);

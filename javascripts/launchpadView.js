@@ -31,6 +31,14 @@
           squareView.model.stop();
         });
       });
+
+      this.$el.on('midiInput', function(event, squareNumber) {
+        var squareModel = _.find(me.squareCollection.models, function(square) {
+          return square.get('squareNumber') === squareNumber;
+        });
+
+        squareModel.execute();
+      });
     },
 
     render: function() {

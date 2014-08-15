@@ -16,7 +16,7 @@
 
     render: function() {
       this.$el.html('<img class = "square" src = "' + this.model.decideImageToUse() + '"/>');
-      // this.lightLaunchpad();
+      this.lightLaunchpad();
       return this;
     },
 
@@ -25,13 +25,10 @@
       var trackNumber = this.model.get('trackNumber');
 
       if (trackNumber != -1) {
-        /*
-        if(this.model.get('playing')) {
-          Jazz.MidiOut(0x90, squareNumber, this.LAUNCHPAD_AMBER);
-        } else {
-          Jazz.MidiOut(0x90, squareNumber, this.LAUNCHPAD_GREEN);
-        }
-        */
+        // do stuff
+        var noteOnMessage = [0x90, 60, 0x7f];    // note on, middle C, full velocity
+        // var output = window.Midi.outputs.entries[indexOfPort];
+        // output.send( noteOnMessage );  //omitting the timestamp means send immediately.
       }
     },
 
