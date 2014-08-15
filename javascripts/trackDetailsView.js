@@ -62,11 +62,11 @@
     },
 
     changedTrackName: function() {
-      $('p', this.$el)[0].innerHTML = this.model.get('trackName');
+      $('p', this.$el)[0].innerHTML = this.model.get('trackName').substring(0, 40);
     },
 
     changedArtistName: function() {
-      $('p', this.$el)[1].innerHTML = this.model.get('artistName');
+      $('p', this.$el)[1].innerHTML = this.model.get('artistName').substring(0, 40);
     },
 
     changedAlbumArt: function() {
