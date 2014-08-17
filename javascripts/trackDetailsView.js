@@ -45,11 +45,16 @@
     },
 
     changeTrackClicked: function() {
-      var newTrackNumber = prompt('Track Number:');
-      if (!newTrackNumber) {
+      var me = this;
+      var trackUrl = prompt('Track Url:');
+      if (!trackUrl) {
         return;
       }
-      $('#launchpad').trigger('updateTrackNumber', [this.model.get('squareNumber'), newTrackNumber]);
+
+      SC.get('/resolve', { url: trackUrl }, function(track) {
+        $('#launchpad').trigger('updateTrackNumber', [me.model.get('squareNumber'), track.id]);
+      });
+
     },
 
     changePositionClicked: function() {
