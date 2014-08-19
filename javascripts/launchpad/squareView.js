@@ -31,10 +31,8 @@
         } else {
           message = [0x90, squareNumber, this.LAUNCHPAD_AMBER];
         }
-        
-        $(document).ready(function () {
-          window.Midi.outputs()[0].send(message);
-        });
+
+        window.libraryInitialiser.sendMidiSignal(message);
       }
     },
 
