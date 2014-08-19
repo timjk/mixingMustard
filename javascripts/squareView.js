@@ -16,7 +16,7 @@
 
     render: function() {
       this.$el.html('<img class = "square" src = "' + this.model.decideImageToUse() + '"/>');
-      // this.lightLaunchpad();
+      this.lightLaunchpad();
       return this;
     },
 
@@ -31,7 +31,10 @@
         } else {
           message = [0x90, squareNumber, this.LAUNCHPAD_AMBER];
         }
-        window.Midi.outputs()[0].send(message);
+        
+        $(document).ready(function () {
+          window.Midi.outputs()[0].send(message);
+        });
       }
     },
 

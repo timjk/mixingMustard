@@ -29,7 +29,7 @@
           this.get('cachedSound').stop();
           this.get('cachedSound').setPosition(this.get('position'));
           this.get('cachedSound').play();
-          setTimeout(_.bind(this.stop, this), 3000);
+          // setTimeout(_.bind(this.stop, this), 3000);
         } else {
           console.warn('Tried to play a track on square ' + this.squareNumber + ' that hasn\'t cached yet');
         }
