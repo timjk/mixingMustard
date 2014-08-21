@@ -14,7 +14,8 @@
                             '<div class = "trackDetailsInfo"><p><%= artistName %></p></div>' +
                           '</div>' +
                           '<button id = "changeTrackButton">Change Track</button>' +
-                          '<button id = "changePositionButton">Change Position</button>'),
+                          '<button id = "changePositionButton">Change Position</button>' +
+                          '<div id = "trackPositionSlider"></div>'),
 
     initialize: function() {
       var me = this;
@@ -32,6 +33,7 @@
           me.model.setModelData(squareNumber, trackNumber);
         }
       });
+
     },
 
     render: function() {
@@ -41,6 +43,8 @@
 
       var templateMappings = {'trackName' : trackName, 'artistName' : artistName, 'albumArt' : albumArt};
       this.$el.html(this.template(templateMappings));
+
+      $('#trackPositionSlider', this.$el).slider();
       return this;
     },
 
@@ -58,12 +62,12 @@
     },
 
     changePositionClicked: function() {
-      var position = prompt('Position (seconds): ');
-      if (!position) {
-        return;
-      }
-      position = position * 1000;
-      $('#launchpad').trigger('updatePosition', [this.model.get('squareNumber'), position]);
+      var TRACK_DURATION = 60;
+
+      var sliderPercentage = $('#trackPositionSlider').slider("option", "value");
+      var seconds = sliderPercentage / 100 * TRACK_DURATION * 1000;
+
+      $('#launchpad').trigger('updatePosition', [this.model.get('squareNumber'), seconds]);
     },
 
     changedTrackName: function() {
