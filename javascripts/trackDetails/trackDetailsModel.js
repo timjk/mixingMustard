@@ -7,7 +7,8 @@
       squareNumber: -1,
       trackName: '',
       artistName: '',
-      albumArt: './img/default.png'
+      albumArt: './img/default.png',
+      trackLength: 100
     },
 
     initialize: function() {
@@ -28,6 +29,7 @@
         } else {
           me.set('albumArt', trackInfo.user.avatar_url);
         }
+        me.set('trackLength', trackInfo.duration);
       });
     },
 
@@ -36,6 +38,7 @@
       this.set('trackName', this.NO_TRACK);
       this.set('artistName', this.NO_ARTIST);
       this.set('albumArt', './img/default.png');
+      this.set('trackLength', 100);
     },
   });
 })(jQuery);

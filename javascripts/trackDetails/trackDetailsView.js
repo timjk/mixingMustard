@@ -14,7 +14,6 @@
                             '<div class = "trackDetailsInfo"><p><%= artistName %></p></div>' +
                           '</div>' +
                           '<button id = "changeTrackButton">Change Track</button>' +
-                          '<button id = "changePositionButton">Change Position</button>' +
                           '<div id = "trackPositionSlider"></div>'),
 
     initialize: function() {
@@ -22,9 +21,10 @@
 
       this.model = new window.TrackDetailsModel();
 
-      this.model.on("change:trackName", this.changedTrackName, this);
-      this.model.on("change:artistName", this.changedArtistName, this);
-      this.model.on("change:albumArt", this.changedAlbumArt, this);
+      this.model.on('change:trackName', this.changedTrackName, this);
+      this.model.on('change:artistName', this.changedArtistName, this);
+      this.model.on('change:albumArt', this.changedAlbumArt, this);
+      this.model.on('change:trackLength', this.changedTrackLength, this);
 
       this.$el.on('selectedChanged', function(event, trackNumber, squareNumber) {
         if (trackNumber == -1) {
@@ -62,12 +62,8 @@
     },
 
     changePositionClicked: function() {
-      var TRACK_DURATION = 60;
-
-      var sliderPercentage = $('#trackPositionSlider').slider("option", "value");
-      var seconds = sliderPercentage / 100 * TRACK_DURATION * 1000;
-
-      $('#launchpad').trigger('updatePosition', [this.model.get('squareNumber'), seconds]);
+      var sliderPosition = $('#trackPositionSlider').slider('option', "value");
+      $('#launchpad').trigger('updatePosition', [this.model.get('squareNumber'), sliderPosition]);
     },
 
     changedTrackName: function() {
@@ -80,6 +76,12 @@
 
     changedAlbumArt: function() {
       $('img', this.$el)[0].src = this.model.get('albumArt');
+    },
+
+    changedTrackLength: function() {
+      var me = this;
+      $('#trackPositionSlider', this.$el).slider('option', 'max', this.model.get('trackLength'));
+      $('#trackPositionSlider').on('slidechange', function(event, ui) { me.changePositionClicked(); });
     },
   });
 })(jQuery);
