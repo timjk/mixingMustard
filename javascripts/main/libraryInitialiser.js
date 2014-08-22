@@ -23,9 +23,11 @@
       window.Midi = midiAccess;
       window.Midi.outputs()[0].send([176, 0, 0]); // reset launchpad
       this.secondStage();
-      // is the device always 0?
       window.Midi.inputs()[0].onmidimessage = function(event) {
-        $('#launchpad').trigger('midiInput', event.data[1]);
+        console.debug(event.data);
+        if (event.data[2] === 127) { // use on signal and ignore off
+          $('#launchpad').trigger('midiInput', event.data[1]);
+        }
       };
     },
 

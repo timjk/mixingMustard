@@ -58,7 +58,6 @@
       SC.get('/resolve', { url: trackUrl }, function(track) {
         $('#launchpad').trigger('updateTrackNumber', [me.model.get('squareNumber'), track.id]);
       });
-
     },
 
     changePositionClicked: function() {

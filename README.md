@@ -24,7 +24,10 @@ My tracks
 Notes
 --------
 
-consistency for eventnames and functions
+consistency for event names and functions
 pass squareModel to trackDetails instead of maintaining duplicate model
+show time for position slider
+is the device always 0? See if you can refer to a device by it's name
+make more consts, especially when it's referenced multiple places
 
 for future: use listen function instead of on because it's managed by backbone and prevents memory leaks
