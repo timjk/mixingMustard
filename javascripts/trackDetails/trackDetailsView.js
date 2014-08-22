@@ -26,11 +26,11 @@
       this.model.on('change:albumArt', this.changedAlbumArt, this);
       this.model.on('change:trackLength', this.changedTrackLength, this);
 
-      this.$el.on('selectedChanged', function(event, trackNumber, squareNumber) {
+      this.$el.on('selectedChanged', function(event, trackNumber, squareNumber, trackPosition) {
         if (trackNumber == -1) {
           me.model.setInvalid(squareNumber);
         } else {
-          me.model.setModelData(squareNumber, trackNumber);
+          me.model.setModelData(squareNumber, trackNumber, trackPosition);
         }
       });
 
@@ -81,6 +81,7 @@
     changedTrackLength: function() {
       var me = this;
       $('#trackPositionSlider', this.$el).slider('option', 'max', this.model.get('trackLength'));
+      $('#trackPositionSlider', this.$el).slider('value', this.model.get('trackPosition'));
       $('#trackPositionSlider').on('slidechange', function(event, ui) { me.changePositionClicked(); });
     },
   });
