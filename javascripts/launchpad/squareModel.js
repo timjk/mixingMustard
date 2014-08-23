@@ -4,6 +4,7 @@
       squareNumber: 0,
       trackNumber: -1,
       position: 0,
+      trackPlayLength: 1,
       playing: false,
       cachedSound: null,
     },

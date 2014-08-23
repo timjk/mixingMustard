@@ -20,6 +20,13 @@
         square.set('trackNumber', trackNumber);
       });
 
+      this.$el.on('updateTrackPlayLength', function(event, squareNumber, trackPlayLength) {
+        var square = _.find(me.squareCollection.models, function(element) {
+          return element.get('squareNumber') === squareNumber;
+        });
+        square.set('trackPlayLength', trackPlayLength);
+      });
+
       this.$el.on('updatePosition', function(event, squareNumber, position) {
         var square = _.find(me.squareCollection.models, function(element) {
           return element.get('squareNumber') === squareNumber;

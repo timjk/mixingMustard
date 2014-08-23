@@ -14,7 +14,8 @@
                             '<div class = "trackDetailsInfo"><p><%= artistName %></p></div>' +
                           '</div>' +
                           '<button id = "changeTrackButton">Change Track</button>' +
-                          '<div id = "trackPositionSlider"></div>'),
+                          '<div id = "trackPositionSlider"></div>' +
+                          '<input id = "trackPlayLength" type = "text" name = "trackPlayLength">'),
 
     initialize: function() {
       var me = this;
@@ -25,18 +26,19 @@
       this.model.on('change:artistName', this.changedArtistName, this);
       this.model.on('change:albumArt', this.changedAlbumArt, this);
       this.model.on('change:trackLength', this.changedTrackLength, this);
+      this.model.on('change:trackPlayLength', this.changedTrackPlayLength, this);
 
-      this.$el.on('selectedChanged', function(event, trackNumber, squareNumber, trackPosition) {
+      this.$el.on('selectedChanged', function(event, trackNumber, squareNumber, trackPosition, trackPlayLength) {
         if (trackNumber == -1) {
           me.model.setInvalid(squareNumber);
         } else {
-          me.model.setModelData(squareNumber, trackNumber, trackPosition);
+          me.model.setModelData(squareNumber, trackNumber, trackPosition, trackPlayLength);
         }
       });
-
     },
 
     render: function() {
+      var me = this;
       var trackName = this.model.get('trackName');
       var artistName = this.model.get('artistName');
       var albumArt = this.model.get('albumArt');
@@ -45,6 +47,13 @@
       this.$el.html(this.template(templateMappings));
 
       $('#trackPositionSlider', this.$el).slider();
+      $('#playLengthSlider', this.$el).slider();
+
+      $('#trackPlayLength', this.$el).on('input', function() {
+        console.debug($('#trackPlayLength').val());
+        $('#launchpad').trigger('updateTrackPlayLength', [me.model.get('squareNumber'), $('#trackPlayLength').val()]);
+      });
+
       return this;
     },
 
@@ -82,6 +91,11 @@
       $('#trackPositionSlider', this.$el).slider('option', 'max', this.model.get('trackLength'));
       $('#trackPositionSlider', this.$el).slider('value', this.model.get('trackPosition'));
       $('#trackPositionSlider').on('slidechange', function(event, ui) { me.changePositionClicked(); });
+    },
+
+    changedTrackPlayLength: function() {
+      var me = this;
+      $('#trackPlayLength').val(this.model.get('trackPlayLength'));
     },
   });
 })(jQuery);
