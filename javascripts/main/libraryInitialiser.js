@@ -20,8 +20,12 @@
     },
 
     onMidiSuccess: function(midiAccess) {
-      window.Midi = midiAccess;
-      window.Midi.outputs()[0].send([176, 0, 0]); // reset launchpad
+      if(midiAccess.outputs()[0]) {
+        window.MidiDevice = midiAccess.outputs()[0];
+        window.MidiDevice.send([176, 0, 0]); // reset launchpad
+      } else {
+        console.warn("Couldn't find any midi devices");
+      }
       this.secondStage();
       window.Midi.inputs()[0].onmidimessage = function(event) {
         console.debug(event.data);
@@ -40,7 +44,9 @@
     },
 
     sendMidiSignal: function(message) {
-      window.Midi.outputs()[0].send(message);
+      if(window.MidiDevice) {
+        window.MidiDevice.send(message);
+      }
     }
   });
 })(jQuery);
