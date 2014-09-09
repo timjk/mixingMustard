@@ -6,7 +6,7 @@
     render: function() {
       var me = this;
 
-      this.$el.append('<h1>Launch Cloud</h1>');
+      this.$el.append('<h1>Mixing Mustard</h1>');
       this.$el.append('<h3>Cue SoundCloud clips from your Launchpad</h3>');
 
       var launchpadView = new window.LaunchpadView();
