@@ -1,3 +1,4 @@
+// FIXME: Why are we passing in 'secondStage'?
 window.libraryInitialiser = new window.LibraryInitialiser({secondStage: secondStage});
 
 function secondStage() {
