@@ -20,8 +20,8 @@
     },
 
     onMidiSuccess: function(midiAccess) {
-      if(midiAccess.outputs()[0]) {
-        window.MidiDevice = midiAccess.outputs()[0];
+      if(midiAccess.outputs[0]) {
+        window.MidiDevice = midiAccess.outputs[0];
         window.MidiDevice.send([176, 0, 0]); // reset launchpad
       } else {
         console.warn("Couldn't find any midi devices");
