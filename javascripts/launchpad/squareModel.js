@@ -32,7 +32,7 @@
           this.get('cachedSound').play();
           // setTimeout(_.bind(this.stop, this), 3000);
         } else {
-          console.warn('Tried to play a track on square ' + this.squareNumber + ' that hasn\'t cached yet');
+          console.warn('Tried to play a track on square ' + this.squareNumber + " that hasn't cached yet");
         }
       } else {
         $('#launchpad').trigger('stopPressed', [this.get('squareNumber')]);
