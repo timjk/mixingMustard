@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-  padding-bottom: 20px;
+  padding: 20px;
 }
 
 .hidden {
@@ -75,15 +75,6 @@ h3 {
 
 .albumArt {
   float: left;
-}
-
-#trackPositionSlider {
-  margin-top: 20px;
-}
-
-#trackPlayLength {
-  margin-top: 20px;
-  color: black;
 }
 
 p {

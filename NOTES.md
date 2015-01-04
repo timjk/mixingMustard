@@ -1,13 +1,13 @@
 TODO
 ====
 
-* consistency for event names and functions
+* remove 'secondStage'
 * pass squareModel to trackDetails instead of maintaining duplicate model
-* show time for position slider
+* select first square on initialization
+* consistency for event names and functions
 * is the device always 0? See if you can refer to a device by it's name
 * make more const, especially when it's referenced multiple places
 * speed initial load by making midi initialization load async
-* select first square on initialization
 
 In the future: use listen() instead of on() because it's managed by backbone and prevents memory leaks
 

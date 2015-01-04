@@ -5,7 +5,7 @@
 
     events: {
       'click #changeTrackButton': 'changeTrackClicked',
-      'click #changePositionButton': 'changePositionClicked'
+      'click #startPositionButton': 'startPositionClicked'
     },
 
     template: _.template('<img style = "width: 100px; height: 100px;" class = "albumArt" src = "<%= albumArt %>"/>' +
@@ -14,8 +14,8 @@
                             '<div class = "trackDetailsInfo"><p><%= artistName %></p></div>' +
                           '</div>' +
                           '<button id = "changeTrackButton">Change Track</button>' +
-                          '<div id = "trackPositionSlider"></div>' +
-                          '<input id = "trackPlayLength" type = "text" name = "trackPlayLength">'),
+                          '<button id = "startPositionButton">Start Position</button>' +
+                          '<button id = "durationButton">Duration</button>'),
 
     initialize: function() {
       var me = this;
@@ -25,8 +25,6 @@
       this.model.on('change:trackName', this.changedTrackName, this);
       this.model.on('change:artistName', this.changedArtistName, this);
       this.model.on('change:albumArt', this.changedAlbumArt, this);
-      this.model.on('change:trackLength', this.changedTrackLength, this);
-      this.model.on('change:trackPlayLength', this.changedTrackPlayLength, this);
 
       this.$el.on('selectedChanged', function(event, trackNumber, squareNumber, trackPosition, trackPlayLength) {
         if (trackNumber == -1) {
@@ -45,9 +43,6 @@
 
       var templateMappings = {'trackName' : trackName, 'artistName' : artistName, 'albumArt' : albumArt};
       this.$el.html(this.template(templateMappings));
-
-      $('#trackPositionSlider', this.$el).slider();
-      $('#playLengthSlider', this.$el).slider();
 
       $('#trackPlayLength', this.$el).on('input', function() {
         console.debug($('#trackPlayLength').val());
@@ -69,33 +64,27 @@
       });
     },
 
-    changePositionClicked: function() {
-      var sliderPosition = $('#trackPositionSlider').slider('option', "value");
-      $('#launchpad').trigger('updatePosition', [this.model.get('squareNumber'), sliderPosition]);
+    startPositionClicked: function() {
+      var startPosition = prompt('Start Position:');
+      if (!startPosition) {
+        return;
+      }
+
+      startPosition = startPosition * 1000;
+
+      $('#launchpad').trigger('updatePosition', [this.model.get('squareNumber'), startPosition]);
     },
 
     changedTrackName: function() {
-      $('p', this.$el)[0].innerHTML = this.model.get('trackName').substring(0, 40);
+      $('.trackDetailsInfo', this.$el)[0].innerHTML = this.model.get('trackName').substring(0, 40);
     },
 
     changedArtistName: function() {
-      $('p', this.$el)[1].innerHTML = this.model.get('artistName').substring(0, 40);
+      $('.trackDetailsInfo', this.$el)[1].innerHTML = this.model.get('artistName').substring(0, 40);
     },
 
     changedAlbumArt: function() {
-      $('img', this.$el)[0].src = this.model.get('albumArt');
-    },
-
-    changedTrackLength: function() {
-      var me = this;
-      $('#trackPositionSlider', this.$el).slider('option', 'max', this.model.get('trackLength'));
-      $('#trackPositionSlider', this.$el).slider('value', this.model.get('trackPosition'));
-      $('#trackPositionSlider').on('slidechange', function(event, ui) { me.changePositionClicked(); });
-    },
-
-    changedTrackPlayLength: function() {
-      var me = this;
-      $('#trackPlayLength').val(this.model.get('trackPlayLength'));
-    },
+      $('.albumArt', this.$el)[0].src = this.model.get('albumArt');
+    }
   });
 })(jQuery);
