@@ -4,7 +4,8 @@
 
     initialize: function() {
       this.addEmptySquares();
-      this.setDefaultClips();
+      this.loadClips();
+      this.bind("change reset", this.saveClips, this);
     },
 
     addEmptySquares: function() {
@@ -34,11 +35,42 @@
       this.add(square);
     },
 
-    setDefaultClips: function() {
-      this.findWhere({squareNumber: 0}).set({'trackNumber': 139133862});
-      this.findWhere({squareNumber: 1}).set({'trackNumber': 153158256});
-      this.findWhere({squareNumber: 2}).set({'trackNumber': 65732315});
-      this.findWhere({squareNumber: 3}).set({'trackNumber': 158851384});
+    loadClips: function() {
+      var me = this;
+      var clips = this.retrieveFromStore();
+      this.placeInCollection(clips);
     },
+
+    retrieveFromStore: function() {
+      return JSON.parse($.cookie('savedClips'));
+    },
+
+    placeInCollection: function(clips) {
+      var me = this;
+      for(var key in clips) {
+        if(clips[key]) {
+          // Have to parseInt on the key since hash keys must be string
+          me.findWhere({squareNumber: parseInt(key)}).set({'trackNumber': clips[key]});
+        }
+      }
+    },
+
+    saveClips: function() {
+      console.log("Updating store...");
+      var clips = this.formatClips();
+      this.placeInStore(clips);
+    },
+
+    formatClips: function() {
+      var clips = [];
+      _.each(this.models, function(model) {
+        clips[model.get('squareNumber')] = model.get('trackNumber');
+      });
+      return JSON.stringify(clips);
+    },
+
+    placeInStore: function(clips) {
+      $.cookie('savedClips', clips, { expires: 30 });
+    }
   });
 })(jQuery);
