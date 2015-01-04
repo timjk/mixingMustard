@@ -1,7 +1,4 @@
-// FIXME: Why are we passing in 'secondStage'?
-window.libraryInitialiser = new window.LibraryInitialiser({secondStage: secondStage});
-
-function secondStage() {
-  var mainView = new window.MainView();
-  $(document.body).append(mainView.render().$el);
-}
+(function($) {
+  window.libraryInitialiser = new window.LibraryInitialiser();
+  $(document.body).append(new window.MainView().render().$el);
+})(jQuery);
