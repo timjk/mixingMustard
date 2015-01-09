@@ -14,23 +14,17 @@
       }, this);
 
       this.$el.on('updateTrackNumber', function(event, squareNumber, trackNumber) {
-        var square = _.find(me.squareCollection.models, function(element) {
-          return element.get('squareNumber') === squareNumber;
-        });
+        var square = me.findSquare(squareNumber);
         square.set('trackNumber', trackNumber);
       });
 
       this.$el.on('updateTrackPlayLength', function(event, squareNumber, trackPlayLength) {
-        var square = _.find(me.squareCollection.models, function(element) {
-          return element.get('squareNumber') === squareNumber;
-        });
+        var square = me.findSquare(squareNumber);
         square.set('trackPlayLength', trackPlayLength);
       });
 
       this.$el.on('updatePosition', function(event, squareNumber, position) {
-        var square = _.find(me.squareCollection.models, function(element) {
-          return element.get('squareNumber') === squareNumber;
-        });
+        var square = me.findSquare(squareNumber);
         square.set('position', position);
       });
 
@@ -41,12 +35,16 @@
       });
 
       this.$el.on('midiInput', function(event, squareNumber) {
-        var squareModel = _.find(me.squareCollection.models, function(square) {
-          return square.get('squareNumber') === squareNumber;
-        });
-
-        squareModel.execute();
+        var square = me.findSquare(squareNumber);
+        square.execute();
       });
+    },
+
+    findSquare: function(squareNumber) {
+      var square = _.find(this.squareCollection.models, function(element) {
+        return element.get('squareNumber') === squareNumber;
+      });
+      return square;
     },
 
     render: function() {
