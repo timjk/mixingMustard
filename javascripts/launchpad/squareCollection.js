@@ -37,6 +37,10 @@
 
     loadClips: function() {
       var me = this;
+      if (!$.cookie('savedClips')) {
+        return;
+      }
+
       var clips = this.retrieveFromStore();
       this.placeInCollection(clips);
     },
