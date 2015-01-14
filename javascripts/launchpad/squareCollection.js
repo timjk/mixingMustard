@@ -56,7 +56,6 @@
     },
 
     saveClips: function() {
-      console.log("Updating store...");
       var clips = this.formatClips();
       this.placeInStore(clips);
     },

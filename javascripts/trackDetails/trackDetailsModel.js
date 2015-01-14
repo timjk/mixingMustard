@@ -17,7 +17,7 @@
       this.set('artistName', this.NO_ARTIST);
     },
 
-    setModelData: function(squareNumber, trackNumber, trackPosition, trackPlayLength) {
+    setModelData: function(squareNumber, trackNumber, trackPosition, trackDuration) {
       var me = this;
       this.set('squareNumber', squareNumber);
 
@@ -31,7 +31,7 @@
           me.set('albumArt', trackInfo.user.avatar_url);
         }
         me.set('trackPosition', trackPosition);
-        me.set('trackPlayLength', trackPlayLength);
+        me.set('trackDuration', trackDuration);
         me.set('trackLength', trackInfo.duration);
       });
     },
@@ -43,7 +43,7 @@
       this.set('albumArt', './img/default.png');
       this.set('trackLength', 100);
       this.set('trackPosition', 0);
-      this.set('trackPlayLength', 0);
+      this.set('trackDuration', 0);
     },
   });
 })(jQuery);
