@@ -18,14 +18,14 @@
         square.set('trackNumber', trackNumber);
       });
 
-      this.$el.on('updateTrackPlayLength', function(event, squareNumber, trackPlayLength) {
-        var square = me.findSquare(squareNumber);
-        square.set('trackPlayLength', trackPlayLength);
-      });
-
       this.$el.on('updatePosition', function(event, squareNumber, position) {
         var square = me.findSquare(squareNumber);
         square.set('position', position);
+      });
+
+      this.$el.on('updateDurationLength', function(event, squareNumber, durationLength) {
+        var square = me.findSquare(squareNumber);
+        square.set('durationLength', durationLength);
       });
 
       this.$el.on('stopPressed', function(event, squareNumber) {

@@ -4,7 +4,7 @@
       squareNumber: 0,
       trackNumber: -1,
       position: 0,
-      trackPlayLength: 1,
+      durationLength: 1000,
       playing: false,
       cachedSound: null,
     },
@@ -12,6 +12,7 @@
     initialize: function() {
       this.setCachedSong();
       this.on('change:trackNumber', this.setCachedSong, this);
+      this.currentTimeout = '';
     },
 
     setCachedSong: function() {
@@ -30,7 +31,8 @@
           this.get('cachedSound').stop();
           this.get('cachedSound').setPosition(this.get('position'));
           this.get('cachedSound').play();
-          // setTimeout(_.bind(this.stop, this), 3000);
+          window.clearTimeout(this.currentTimeout);
+          this.currentTimeout = setTimeout(_.bind(this.stop, this), this.get('durationLength'));
         } else {
           console.warn('Tried to play a track on square ' + this.squareNumber + " that hasn't cached yet");
         }

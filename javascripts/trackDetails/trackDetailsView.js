@@ -5,7 +5,8 @@
 
     events: {
       'click #changeTrackButton': 'changeTrackClicked',
-      'click #startPositionButton': 'startPositionClicked'
+      'click #startPositionButton': 'startPositionClicked',
+      'click #durationButton': 'durationButtonClicked'
     },
 
     template: _.template('<img style = "width: 100px; height: 100px;" class = "albumArt" src = "<%= albumArt %>"/>' +
@@ -26,11 +27,11 @@
       this.model.on('change:artistName', this.changedArtistName, this);
       this.model.on('change:albumArt', this.changedAlbumArt, this);
 
-      this.$el.on('selectedChanged', function(event, trackNumber, squareNumber, trackPosition, trackPlayLength) {
+      this.$el.on('selectedChanged', function(event, trackNumber, squareNumber, trackPosition, trackDuration) {
         if (trackNumber == -1) {
           me.model.setInvalid(squareNumber);
         } else {
-          me.model.setModelData(squareNumber, trackNumber, trackPosition, trackPlayLength);
+          me.model.setModelData(squareNumber, trackNumber, trackPosition, trackDuration);
         }
       });
     },
@@ -43,11 +44,6 @@
 
       var templateMappings = {'trackName' : trackName, 'artistName' : artistName, 'albumArt' : albumArt};
       this.$el.html(this.template(templateMappings));
-
-      $('#trackPlayLength', this.$el).on('input', function() {
-        console.debug($('#trackPlayLength').val());
-        $('#launchpad').trigger('updateTrackPlayLength', [me.model.get('squareNumber'), $('#trackPlayLength').val()]);
-      });
 
       return this;
     },
@@ -71,8 +67,17 @@
       }
 
       startPosition = startPosition * 1000;
-
       $('#launchpad').trigger('updatePosition', [this.model.get('squareNumber'), startPosition]);
+    },
+
+    durationButtonClicked: function() {
+      var durationLength = prompt('Duration Length:');
+      if (!durationLength) {
+        return;
+      }
+
+      durationLength = durationLength * 1000;
+      $('#launchpad').trigger('updateDurationLength', [this.model.get('squareNumber'), durationLength]);
     },
 
     changedTrackName: function() {

@@ -42,7 +42,7 @@
       this.model.execute();
 
       $('.square', this.$el).addClass('selectedSquare');
-      $('#trackDetails').trigger('selectedChanged', [this.model.get('trackNumber'), this.model.get('squareNumber'), this.model.get('position'), this.model.get('trackPlayLength')]);
+      $('#trackDetails').trigger('selectedChanged', [this.model.get('trackNumber'), this.model.get('squareNumber'), this.model.get('position'), this.model.get('trackDuration')]);
     },
 
     changeImageIfNecessary: function() {
