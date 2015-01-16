@@ -52,9 +52,12 @@
     placeInCollection: function(clips) {
       var me = this;
       for(var key in clips) {
-        if(clips[key]) {
+        if(clips[key] && clips[key][0]) {
           // Have to parseInt on the key since hash keys must be string
-          me.findWhere({squareNumber: parseInt(key)}).set({'trackNumber': clips[key]});
+          var squareToSet = me.findWhere({squareNumber: parseInt(key)});
+          squareToSet.set({'trackNumber': clips[key][0]});
+          squareToSet.set({'position': clips[key][1]});
+          squareToSet.set({'durationLength': clips[key][2]});
         }
       }
     },
@@ -67,7 +70,12 @@
     formatClips: function() {
       var clips = [];
       _.each(this.models, function(model) {
-        clips[model.get('squareNumber')] = model.get('trackNumber');
+        var savedValues = [
+          clips.trackNumber = model.get('trackNumber'),
+          clips.position = model.get('position'),
+          clips.durationLength = model.get('durationLength')
+        ];
+        clips[model.get('squareNumber')] = savedValues;
       });
       return JSON.stringify(clips);
     },
