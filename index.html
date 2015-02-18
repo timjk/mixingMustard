@@ -8,21 +8,6 @@
         <div id='launchpad' class='col-md-6'>
             <div class='squareContainer'>
                 <img class='square' ng-repeat='square in row track by $index' ng-click='click($index)' src='./img/button-passive.png'>
-                <br/>
-                <img class='square' ng-repeat='square in row track by $index' ng-click='click($event)' src='./img/button-passive.png'>
-                <br/>
-                <img class='square' ng-repeat='square in row track by $index' ng-click='click($event)' src='./img/button-passive.png'>
-                <br/>
-                <img class='square' ng-repeat='square in row track by $index' ng-click='click($event)' src='./img/button-passive.png'>
-                <br/>
-                <img class='square' ng-repeat='square in row track by $index' ng-click='click($event)' src='./img/button-passive.png'>
-                <br/>
-                <img class='square' ng-repeat='square in row track by $index' ng-click='click($event)' src='./img/button-passive.png'>
-                <br/>
-                <img class='square' ng-repeat='square in row track by $index' ng-click='click($event)' src='./img/button-passive.png'>
-                <br/>
-                <img class='square' ng-repeat='square in row track by $index' ng-click='click($event)' src='./img/button-passive.png'>
-                <br/>
             </div>
         </div>
 
@@ -33,8 +18,8 @@
             <p>Position: {{ selectedSquare.position }}</p>
             <p>Duration: {{ selectedSquare.duration }}</p>
             <button ng-click='changeTrackClicked()'>Change Track</button>
-            <button>Change Position</button>
-            <button>Change Duration</button>
+            <button disabled='disabled'>Change Position</button>
+            <button disabled='disabled'>Change Duration</button>
         </div>
     </div>
 

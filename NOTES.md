@@ -1,10 +1,3 @@
-TODO
-====
-
-Soundcloud urls
-$.getJSON('http://api.soundcloud.com/tracks/' + trackNumber + '.json?client_id=' + window.CLIENT_ID,
-
-
 Useful tracks numbers
 ---------------------
 

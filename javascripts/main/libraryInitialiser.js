@@ -2,20 +2,6 @@
   window.LibraryInitialiser = function() {
     var midiDevice;
 
-    var initialse = function() {
-      initializeSoundcloud();
-      initializeWebMidi();
-    };
-
-    var initialiseSoundcloud = function() {
-      var CLIENT_ID = '6603d805dad113c51b7df28b6737f2cc';
-
-      SC.initialize({
-        client_id: CLIENT_ID,
-        redirect_uri: 'http://example.com/callback.html',
-      });
-    };
-
     var initialiseWebMidi = function() {
       navigator.requestMIDIAccess().then(onMidiSuccess, onMidiFailure, this);
     };
