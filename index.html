@@ -27,7 +27,7 @@
         </div>
 
         <div id='trackDetails' class='col-md-6'>
-            <img class='albumArt' src='./img/default.png' />
+            <img class='albumArt' src='{{ selectedSquare.artUrl || "./img/default.png" }}' />
             <p>Track: {{ selectedSquare.title }}</p>
             <p>Artist: {{ selectedSquare.artist }}</p>
             <p>Position: {{ selectedSquare.position }}</p>

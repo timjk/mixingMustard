@@ -2,9 +2,9 @@ var app = angular.module('app', ['ngRoute']);
 app.controller('appController', function($scope) {
   var CLIENT_ID = '6603d805dad113c51b7df28b6737f2cc';
 
-  $scope.selectedSquare = '';
-  var track = { url: "https://soundcloud.com/simonhfrost/the-flatinator", title: "Hello", artist: "Someone", position: "1000", duration: "4000" };
+  var track = { url: "https://soundcloud.com/simonhfrost/the-flatinator", title: "Hello", artist: "Someone", position: "1000", duration: "4000", artUrl: "" };
   $scope.row = [ track, track, track, track, track, track, track, track ];
+  $scope.selectedSquare = $scope.row[0];
 
   var initialiseSoundcloud = function() {
     SC.initialize({
@@ -30,28 +30,30 @@ app.controller('appController', function($scope) {
     });
   };
 
-  var logTrackInfo = function(trackInfo) {
-    console.log('title', trackInfo.title);
-    console.log('user.username', trackInfo.user.username);
+  var setTrackInfo = function(selectedSquare, trackInfo) {
+    selectedSquare.title = trackInfo.title;
+    selectedSquare.artist = trackInfo.user.username;
     if (trackInfo.artwork_url) {
-      console.log('artwork_url', trackInfo.artwork_url);
+      selectedSquare.artUrl = trackInfo.artwork_url;
     } else {
-      console.log('user.avatar_url', trackInfo.user.avatar_url);
+      selectedSquare.artUrl = trackInfo.user.avatar_url;
     }
-    console.log('trackInfo.duration', trackInfo.duration);
+    selectedSquare.duration = trackInfo.duration;
   };
 
   $scope.click = function($index) {
-    $scope.selectedSquare = $scope.row[$index];
+    var selectedSquare = $scope.row[$index];
     var trackUrl = $scope.row[$index].url;
 
     SC.get('/resolve', { url: trackUrl }, function(track) {
       var trackId = track.id;
       getSoundTrack(trackId);
       $.getJSON('http://api.soundcloud.com/tracks/' + trackId + '.json?client_id=' + CLIENT_ID, function(trackInfo) {
-        logTrackInfo(trackInfo);
+        setTrackInfo(selectedSquare, trackInfo);
       });
     });
+
+    $scope.selectedSquare = selectedSquare;
   };
 
   $scope.changeTrackClicked = function() {
